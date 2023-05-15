@@ -3,7 +3,10 @@ import { getFilterProductReducer } from "./filterProductReducer";
 import { cartReducer } from "./cartReducer";
 import { allProductsReducer, productCreateReviewReducer, singleProductReducer } from "./productReducers";
 import {
+  forgotPasswordReducer,
+  profileReducer,
   userLoginReducer,
+  userReducer,
   userRegisterReducer,
   userUpdateReducer,
 } from "./userReducers";
@@ -21,9 +24,9 @@ const RootReducer = combineReducers({
   ProductCreateReview: productCreateReviewReducer,
   Cart: cartReducer,
   Checkout: shippingDetailsReducer,
-  UserLogin: userLoginReducer,
-  UserUpdate: userUpdateReducer,
-  UserRegister: userRegisterReducer,
+  user: userReducer,
+  profile: profileReducer,
+  forgotPassword: forgotPasswordReducer,
   OrderCreate: orderCreateReducer,
   OrderDetails: orderDetailsReducer,
   OrderPay: orderPayReducer,

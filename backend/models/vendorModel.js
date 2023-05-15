@@ -16,12 +16,12 @@ const vendorSchema = new mongoose.Schema({
         unique: true,
         validate: [validator.isEmail, "Please enter a valid email address"],
     },
-    password: {
-        type: String,
-        required: [true, "Please enter your password"],
-        minLength: [6, "Your password must be longer than 6 characters"],
-        select: false,
+
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
     },
+
     products: [
         {
             type: mongoose.Schema.Types.ObjectId,
