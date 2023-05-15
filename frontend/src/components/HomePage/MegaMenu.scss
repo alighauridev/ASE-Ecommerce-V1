@@ -37,10 +37,12 @@ body {
     height: 460px;
     flex-direction: column;
     background: white;
-    padding-left: 30px;
+    padding-left: 20px;
     box-shadow: 0px 0px 5px 2px #70707024;
-    padding: 10px 0 10px 30px;
+    /* padding: 10px 0 1px 30px; */
     margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 
   .nav-links li {
@@ -87,7 +89,7 @@ body {
  
     /* height: 100%; */
     background: #ffffff;
-    box-shadow: 0px 0px 5px 2px #70707024;
+  
     max-height: 482px;
     height: 102vh;
   }
@@ -148,11 +150,11 @@ gap: 30px;
 
   .row .mega-links li a {
     padding: 0px;
-   
-    color: #000000;
+    color: #00000092;
     font-size: 12px;
     display: block;
     font-weight: 400;
+    line-height: 25px;
   }
 
   .row .mega-links li a:hover {
