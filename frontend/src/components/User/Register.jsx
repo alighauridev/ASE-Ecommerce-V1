@@ -4,7 +4,7 @@ import Avatar from "@mui/material/Avatar";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
-import { useSnackbar } from "notistack";
+// import { useSnackbar } from "notistack";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, registerUser } from "../../Redux/actions/userActions";
@@ -15,7 +15,7 @@ import FormSidebar from "./FormSidebar";
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar();
+//   const { enqueueSnackbar } = useSnackbar();
 
   const { loading, isAuthenticated, error } = useSelector(
     (state) => state.user
@@ -36,20 +36,20 @@ const Register = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    if (password.length < 8) {
-      enqueueSnackbar("Password length must be atleast 8 characters", {
-        variant: "warning",
-      });
-      return;
-    }
-    if (password !== cpassword) {
-      enqueueSnackbar("Password Doesn't Match", { variant: "error" });
-      return;
-    }
-    if (!avatar) {
-      enqueueSnackbar("Select Avatar", { variant: "error" });
-      return;
-    }
+    // if (password.length < 8) {
+    //   enqueueSnackbar("Password length must be atleast 8 characters", {
+    //     variant: "warning",
+    //   });
+    //   return;
+    // }
+    // if (password !== cpassword) {
+    //   enqueueSnackbar("Password Doesn't Match", { variant: "error" });
+    //   return;
+    // }
+    // if (!avatar) {
+    //   enqueueSnackbar("Select Avatar", { variant: "error" });
+    //   return;
+    // }
 
     const formData = new FormData();
     formData.set("name", name);
@@ -78,15 +78,15 @@ const Register = () => {
     }
   };
 
-  useEffect(() => {
-    if (error) {
-      enqueueSnackbar(error, { variant: "error" });
-      dispatch(clearErrors());
-    }
-    if (isAuthenticated) {
-      navigate("/");
-    }
-  }, [dispatch, error, isAuthenticated, navigate, enqueueSnackbar]);
+//   useEffect(() => {
+//     if (error) {
+//       enqueueSnackbar(error, { variant: "error" });
+//       dispatch(clearErrors());
+//     }
+//     if (isAuthenticated) {
+//       navigate("/");
+//     }
+//   }, [dispatch, error, isAuthenticated, navigate, enqueueSnackbar]);
 
   return (
     <>
