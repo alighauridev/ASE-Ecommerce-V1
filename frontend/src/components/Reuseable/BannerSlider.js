@@ -22,7 +22,7 @@ export default function BannerSlider() {
        
       </Swiper> */}
       <div style={{}}>
-      <img src="./images/5.jpg" alt="" style={{height:'370px',boxShadow:'0px 0px 5px 0px #00000042'}}/>
+      <img src="./images/5.jpg" alt="" style={{height:'',width:'97%',boxShadow:'0px 0px 5px 0px #00000042'}}/>
       </div>
     </div>
   );
