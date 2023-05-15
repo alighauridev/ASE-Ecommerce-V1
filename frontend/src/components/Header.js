@@ -44,8 +44,40 @@ const Header = () => {
 
             <div className='login'>
               <div className='icon'>
-                <span><AiOutlineUser /></span>
-                <Link to='/login' style={{ textDecoration: 'none', color: 'black' }}> <span>Login</span></Link>
+                <Link to='/login' style={{ textDecoration: 'none', color: 'black' }}>
+                  <ul className="nav-links">                  
+                    <li>
+                      <Link to="" className="desktop-item">
+                    <div style={{display:'flex',alignItems:'center',gap:'10px '}}>
+                    <span><AiOutlineUser />  </span>
+<span>Account</span>
+                    </div>
+
+                      </Link>
+                      <input type="checkbox" id="showDrop" style={{display:'none'}} />
+                      <label htmlFor="showDrop" className="mobile-item">
+
+                      </label>
+                      <ul className="drop-menu">
+                        <li style={{ margin: "0" }}>
+                          <Link to="/login">Login
+
+                          </Link>
+                        </li>
+                        <li style={{ margin: "0" }}>
+                          <Link to='/signup'>  Signin
+
+                          </Link>
+                        </li>
+
+
+                      </ul>
+                    </li>
+
+                  </ul>
+
+
+                </Link>
               </div>
               <div className='icon'>
                 <span><GiArchiveRegister /></span>
