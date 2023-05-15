@@ -5,12 +5,10 @@ const ErrorHandler = require("../utils/errorHandler");
 const sendToken = require("../utils/sendToken");
 const asyncErrorHandler = require("../middlewares/asyncErrorHandler");
 const cloudinary = require("cloudinary");
-// Register vendor
-// Vendor Controllers
 
-// Register Vendor
+// Register vendor
 exports.registerVendor = asyncErrorHandler(async (req, res, next) => {
-    const { name, email, password, companyName, address } = req.body;
+    const { name, email, password, companyName, address, user } = req.body;
 
     const vendor = await Vendor.create({
         name,
@@ -18,6 +16,7 @@ exports.registerVendor = asyncErrorHandler(async (req, res, next) => {
         password,
         companyName,
         address,
+        user,
     });
 
     sendToken(vendor, 201, res);
@@ -46,11 +45,11 @@ exports.loginVendor = asyncErrorHandler(async (req, res, next) => {
     sendToken(vendor, 200, res);
 });
 
-// controllers/vendorController.js (continued)
-
 // Get Vendor Details
 exports.getVendorDetails = asyncErrorHandler(async (req, res, next) => {
-    const vendor = await Vendor.findById(req.vendor.id);
+    const vendor = await Vendor.findById(req.vendor.id)
+        .populate("user")
+        .populate("products");
 
     res.status(200).json({
         success: true,
@@ -65,6 +64,7 @@ exports.updateVendorProfile = asyncErrorHandler(async (req, res, next) => {
         email: req.body.email,
         companyName: req.body.companyName,
         address: req.body.address,
+        user: req.body.user,
     };
 
     await Vendor.findByIdAndUpdate(req.vendor.id, newVendorData, {
@@ -123,7 +123,64 @@ exports.uploadProduct = asyncErrorHandler(async (req, res, next) => {
     const images = await Promise.all(imageUploadPromises);
 
     // Create product with images
-    const product = await Product.create({
+    const product
+        = await Product.create({
+            name,
+            description,
+            price,
+            cuttedPrice,
+            images,
+            category,
+            stock,
+            auction,
+            classifiedAd,
+            vendor: req.vendor.id,
+        });
+    vendor.products.push(product._id);
+    await vendor.save();
+
+    res.status(201).json({
+        success: true,
+        product,
+    });
+});
+
+// Update product
+exports.updateProduct = asyncErrorHandler(async (req, res, next) => {
+    const { name, description, price, cuttedPrice, category, stock, auction, classifiedAd } = req.body;
+    let product = await Product.findById(req.params.id);
+
+    if (!product) {
+        return next(new ErrorHandler("Product not found", 404));
+    }
+
+    if (product.vendor.toString() !== req.vendor.id) {
+        return next(new ErrorHandler("You are not allowed to update this product", 403));
+    }
+
+    const updatedProductData = {
+        name,
+        description,
+        price,
+        cuttedPrice,
+        category,
+        stock,
+        auction,
+        classifiedAd,
+    };
+
+    product = await Product.findByIdAndUpdate(req.params.id, updatedProductData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+    });
+
+    res.status(200).json({
+        success: true,
+        product,
+    });
+
+    await Product.create({
         name,
         description,
         price,
@@ -136,6 +193,8 @@ exports.uploadProduct = asyncErrorHandler(async (req, res, next) => {
         vendor: req.vendor.id,
     });
 
+    //     scss
+    // Copy code
     vendor.products.push(product._id);
     await vendor.save();
 
@@ -147,6 +206,8 @@ exports.uploadProduct = asyncErrorHandler(async (req, res, next) => {
 
 // Update product
 exports.updateProduct = asyncErrorHandler(async (req, res, next) => {
+    const { name, description, price, cuttedPrice, category, stock, auction, classifiedAd } = req.body;
+
     let product = await Product.findById(req.params.id);
 
     if (!product) {
@@ -154,12 +215,21 @@ exports.updateProduct = asyncErrorHandler(async (req, res, next) => {
     }
 
     if (product.vendor.toString() !== req.vendor.id) {
-        return next(
-            new ErrorHandler("You are not allowed to update this product", 403)
-        );
+        return next(new ErrorHandler("You are not allowed to update this product", 403));
     }
 
-    product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+    const updatedProductData = {
+        name,
+        description,
+        price,
+        cuttedPrice,
+        category,
+        stock,
+        auction,
+        classifiedAd,
+    };
+
+    product = await Product.findByIdAndUpdate(req.params.id, updatedProductData, {
         new: true,
         runValidators: true,
         useFindAndModify: false,
@@ -180,19 +250,19 @@ exports.deleteProduct = asyncErrorHandler(async (req, res, next) => {
     }
 
     if (product.vendor.toString() !== req.vendor.id) {
-        return next(
-            new ErrorHandler("You are not allowed to delete this product", 403)
-        );
+        return next(new ErrorHandler("You are not allowed to delete this product", 403));
     }
 
     // Remove product from vendor's array of products
     const index = vendor.products.indexOf(product._id);
+
     if (index > -1) {
         vendor.products.splice(index, 1);
         await vendor.save();
     }
 
     await product.remove();
+
     res.status(200).json({
         success: true,
         message: "Product deleted successfully",
@@ -202,7 +272,6 @@ exports.deleteProduct = asyncErrorHandler(async (req, res, next) => {
 // Request withdrawal
 exports.requestWithdrawal = asyncErrorHandler(async (req, res, next) => {
     const vendor = await Vendor.findById(req.vendor.id);
-
     if (!vendor) {
         return next(new ErrorHandler("Vendor not found", 404));
     }
@@ -210,9 +279,7 @@ exports.requestWithdrawal = asyncErrorHandler(async (req, res, next) => {
     const { amount } = req.body;
 
     if (amount > vendor.wallet.balance) {
-        return next(
-            new ErrorHandler("Withdrawal amount exceeds available balance", 400)
-        );
+        return next(new ErrorHandler("Withdrawal amount exceeds available balance", 400));
     }
 
     const withdrawal = await Withdrawal.create({
@@ -232,7 +299,6 @@ exports.requestWithdrawal = asyncErrorHandler(async (req, res, next) => {
 // Get vendor's products
 exports.getVendorProducts = asyncErrorHandler(async (req, res, next) => {
     const vendor = await Vendor.findById(req.vendor.id);
-
     if (!vendor) {
         return next(new ErrorHandler("Vendor not found", 404));
     }
