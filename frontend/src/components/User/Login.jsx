@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, loginUser } from "../../Redux/actions/userActions";
-import { useSnackbar } from "notistack";
+// import { useSnackbar } from "notistack";
 import BackdropLoader from "../Layouts/BackdropLoader";
 import MetaData from "../Layouts/MetaData";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar();
+//   const { enqueueSnackbar } = useSnackbar();
   const location = useLocation();
 
   const { loading, isAuthenticated, error } = useSelector(
@@ -27,15 +27,15 @@ const Login = () => {
 
   const redirect = location.search ? location.search.split("=")[1] : "account";
 
-  useEffect(() => {
-    if (error) {
-      enqueueSnackbar(error, { variant: "error" });
-      dispatch(clearErrors());
-    }
-    if (isAuthenticated) {
-      navigate(`/${redirect}`);
-    }
-  }, [dispatch, error, isAuthenticated, redirect, navigate, enqueueSnackbar]);
+//   useEffect(() => {
+//     if (error) {
+//     //   enqueueSnackbar(error, { variant: "error" });
+//       dispatch(clearErrors());
+//     }
+//     if (isAuthenticated) {
+//       navigate(`/${redirect}`);
+//     }
+//   }, [dispatch, error, isAuthenticated, redirect, navigate, enqueueSnackbar]);
 
   return (
     <>

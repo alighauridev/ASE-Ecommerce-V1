@@ -14,7 +14,7 @@ body {
     padding: 0px 30px;
     /* height: 100%; */
     width: 100%;
-    line-height: 51px;
+    line-height: 25px;
     /* margin: auto; */
     /* display: flex; */
     flex-direction: column;
@@ -34,12 +34,15 @@ body {
 
   .wrapper .nav-links {
     display: flex;
+    height: 460px;
     flex-direction: column;
     background: white;
-    padding-left: 30px;
+    padding-left: 20px;
     box-shadow: 0px 0px 5px 2px #70707024;
-    padding: 10px 0 10px 30px;
+    /* padding: 10px 0 1px 30px; */
     margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 
   .nav-links li {
@@ -49,7 +52,7 @@ body {
   .nav-links li a {
     color: #000000;
     text-decoration: none;
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 500;
 
     border-radius: 5px;
@@ -86,9 +89,9 @@ body {
  
     /* height: 100%; */
     background: #ffffff;
-    box-shadow: 0px 0px 5px 2px #70707024;
+  
     max-height: 482px;
-    height: 103vh;
+    height: 102vh;
   }
 
   .drop-menu li a {
@@ -97,6 +100,7 @@ body {
     padding: 0 0 0 15px;
     font-weight: 400;
     border-radius: 0px;
+    
   }
 
   .mega-box {
@@ -111,7 +115,7 @@ body {
 
   .mega-box .content {
     background: #ffffff;
-
+gap: 30px;
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -130,8 +134,9 @@ body {
 
   .content .row header {
     color: #000000;
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 400;
+  
   }
 
   .content .row .mega-links {
@@ -145,10 +150,11 @@ body {
 
   .row .mega-links li a {
     padding: 0px;
-   
-    color: #000000;
-    font-size: 16px;
+    color: #00000092;
+    font-size: 12px;
     display: block;
+    font-weight: 400;
+    line-height: 25px;
   }
 
   .row .mega-links li a:hover {
