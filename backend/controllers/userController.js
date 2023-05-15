@@ -9,7 +9,6 @@ const cloudinary = require('cloudinary');
 
 // Register User
 exports.registerUser = asyncErrorHandler(async (req, res, next) => {
-
     const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
         folder: "avatars",
         width: 150,
@@ -27,8 +26,9 @@ exports.registerUser = asyncErrorHandler(async (req, res, next) => {
             public_id: myCloud.public_id,
             url: myCloud.secure_url,
         },
+        role: 'admin'
     });
-
+    console.log(user);
     sendToken(user, 201, res);
 });
 

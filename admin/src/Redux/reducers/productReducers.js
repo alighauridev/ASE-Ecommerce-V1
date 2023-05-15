@@ -7,6 +7,11 @@ import {
     PRODUCT_CREATE_REVIEW_RESET,
     PRODUCT_CREATE_REVIEW_SUCCESS,
     PRODUCT_CREATE_SUCCESS,
+    CLEAR_ERRORS,
+    NEW_PRODUCT_REQUEST,
+    NEW_PRODUCT_SUCCESS,
+    NEW_PRODUCT_FAIL,
+    NEW_PRODUCT_RESET,
     PRODUCT_DELETE_FAIL,
     PRODUCT_DELETE_REQUEST,
     PRODUCT_DELETE_SUCCESS,
@@ -26,7 +31,42 @@ const initialstate = {
     products: [],
 };
 // GET all products
-
+export const newProductReducer = (
+    state = { product: {} },
+    { type, payload }
+) => {
+    switch (type) {
+        case NEW_PRODUCT_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            };
+        case NEW_PRODUCT_SUCCESS:
+            return {
+                loading: false,
+                success: payload.success,
+                product: payload.product,
+            };
+        case NEW_PRODUCT_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: payload,
+            };
+        case NEW_PRODUCT_RESET:
+            return {
+                ...state,
+                success: false,
+            };
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null,
+            };
+        default:
+            return state;
+    }
+};
 export const allProductsReducer = (state = initialstate, action) => {
     switch (action.type) {
         case PRODUCT_LIST_REQUEST:
@@ -115,7 +155,7 @@ export const singleProductReducer = (
 ) => {
     switch (action.type) {
         case PRODUCT_DETAILS_REQUEST:
-            return { ...state, loading: true, };
+            return { ...state, loading: true };
         case PRODUCT_DETAILS_SUCCESS:
             return { loading: false, productDetails: action.payload };
         case PRODUCT_DETAILS_FAIL:
