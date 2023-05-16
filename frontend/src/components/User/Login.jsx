@@ -10,7 +10,7 @@ import MetaData from "../Layouts/MetaData";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-//   const { enqueueSnackbar } = useSnackbar();
+  //   const { enqueueSnackbar } = useSnackbar();
   const location = useLocation();
 
   const { loading, isAuthenticated, error } = useSelector(
@@ -27,19 +27,19 @@ const Login = () => {
 
   const redirect = location.search ? location.search.split("=")[1] : "account";
 
-//   useEffect(() => {
-//     if (error) {
-//     //   enqueueSnackbar(error, { variant: "error" });
-//       dispatch(clearErrors());
-//     }
-//     if (isAuthenticated) {
-//       navigate(`/${redirect}`);
-//     }
-//   }, [dispatch, error, isAuthenticated, redirect, navigate, enqueueSnackbar]);
+  //   useEffect(() => {
+  //     if (error) {
+  //     //   enqueueSnackbar(error, { variant: "error" });
+  //       dispatch(clearErrors());
+  //     }
+  //     if (isAuthenticated) {
+  //       navigate(`/${redirect}`);
+  //     }
+  //   }, [dispatch, error, isAuthenticated, redirect, navigate, enqueueSnackbar]);
 
   return (
     <>
-      <MetaData title="Login | Flipkart" />
+      <MetaData title="Login " />
 
       {loading && <BackdropLoader />}
       <main className="w-full mt-12 sm:pt-20 sm:mt-0">
@@ -84,19 +84,13 @@ const Login = () => {
                   {/* <!-- button container --> */}
                   <div className="flex flex-col gap-2.5 mt-2 mb-32">
                     <p className="text-xs text-primary-grey text-left">
-                      By continuing, you agree to Flipkart's{" "}
-                      <a
-                        href="https://www.flipkart.com/pages/terms"
-                        className="text-primary-blue"
-                      >
+                      By continuing, you agree to{" "}
+                      <a href="" className="text-primary-blue">
                         {" "}
                         Terms of Use
                       </a>{" "}
                       and{" "}
-                      <a
-                        href="https://www.flipkart.com/pages/privacypolicy"
-                        className="text-primary-blue"
-                      >
+                      <a href="" className="text-primary-blue">
                         {" "}
                         Privacy Policy.
                       </a>
@@ -123,7 +117,7 @@ const Login = () => {
                 to="/register"
                 className="font-medium text-sm text-primary-blue"
               >
-                New to Flipkart? Create an account
+                New to ASE? Create an account
               </Link>
             </div>
             {/* <!-- edit info container --> */}
