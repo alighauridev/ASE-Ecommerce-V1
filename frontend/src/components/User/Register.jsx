@@ -15,7 +15,7 @@ import FormSidebar from "./FormSidebar";
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-//   const { enqueueSnackbar } = useSnackbar();
+  //   const { enqueueSnackbar } = useSnackbar();
 
   const { loading, isAuthenticated, error } = useSelector(
     (state) => state.user
@@ -78,19 +78,19 @@ const Register = () => {
     }
   };
 
-//   useEffect(() => {
-//     if (error) {
-//       enqueueSnackbar(error, { variant: "error" });
-//       dispatch(clearErrors());
-//     }
-//     if (isAuthenticated) {
-//       navigate("/");
-//     }
-//   }, [dispatch, error, isAuthenticated, navigate, enqueueSnackbar]);
+  //   useEffect(() => {
+  //     if (error) {
+  //       enqueueSnackbar(error, { variant: "error" });
+  //       dispatch(clearErrors());
+  //     }
+  //     if (isAuthenticated) {
+  //       navigate("/");
+  //     }
+  //   }, [dispatch, error, isAuthenticated, navigate, enqueueSnackbar]);
 
   return (
     <>
-      <MetaData title="Register | Flipkart" />
+      <MetaData title="Register " />
 
       {loading && <BackdropLoader />}
       <main className="w-full mt-12 sm:pt-20 sm:mt-0">

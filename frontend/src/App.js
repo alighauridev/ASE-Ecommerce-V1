@@ -8,6 +8,7 @@ import Register from './components/User/Register';
 import ProtectedRoute from "./routing/ProtectedRoute";
 import "./App.css";
 import Category from "./components/Category/Category";
+import VendorRegister from "./components/User/VendorRegister";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/vendor/register" element={<VendorRegister />} />
           <Route path="/" element={<HomeScreen />} />
 
           <Route path="/category" element={<Category />} />
