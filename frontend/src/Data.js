@@ -238,6 +238,75 @@ export const FlashSlae = [
         img: './images/24.jpg',
         productTitle: 'Maybelline Fit Me Matte And Poreless Foundation 30ml - 356 Warm Coconut',
         price: 'PKR 12,75',
+        del: 'PKR 17,00',
+        id:1,
+
+    },
+    {
+        img: './images/24.jpg',
+        productTitle: 'Maybelline Fit Me Matte And Poreless Foundation 30ml - 356 Warm Coconut',
+        price: 'PKR 12,75',
+        del: 'PKR 17,00',
+        id:2,
+
+    },
+    {
+        img: './images/24.jpg',
+        productTitle: 'Maybelline Fit Me Matte And Poreless Foundation 30ml - 356 Warm Coconut',
+        price: 'PKR 12,75',
+        del: 'PKR 17,00',
+        id:3,
+
+    },
+    {
+        img: './images/24.jpg',
+        productTitle: 'Maybelline Fit Me Matte And Poreless Foundation 30ml - 356 Warm Coconut',
+        price: 'PKR 12,75',
+        del: 'PKR 17,00',
+        id:4,
+
+    },
+    {
+        img: './images/24.jpg',
+        productTitle: 'Maybelline Fit Me Matte And Poreless Foundation 30ml - 356 Warm Coconut',
+        price: 'PKR 12,75',
+        del: 'PKR 17,00',
+        id:5,
+
+    },
+    {
+        img: './images/24.jpg',
+        productTitle: 'Maybelline Fit Me Matte And Poreless Foundation 30ml - 356 Warm Coconut',
+        price: 'PKR 12,75',
+        del: 'PKR 17,00',
+        id:6,
+
+    },
+    {
+        img: './images/24.jpg',
+        productTitle: 'Maybelline Fit Me Matte And Poreless Foundation 30ml - 356 Warm Coconut',
+        price: 'PKR 12,75',
+        del: 'PKR 17,00',
+        id:7,
+
+    },
+    {
+        img: './images/24.jpg',
+        productTitle: 'Maybelline Fit Me Matte And Poreless Foundation 30ml - 356 Warm Coconut',
+        price: 'PKR 12,75',
+        del: 'PKR 17,00',
+        id:8,
+
+    },
+]
+
+
+
+export const Laptop = [
+    {
+        img: './images/24.jpg',
+        productTitle: 'Maybelline Fit Me Matte And Poreless Foundation 30ml - 356 Warm Coconut',
+        price: 'PKR 12,75',
         del: 'PKR 17,00'
 
     },
@@ -291,7 +360,6 @@ export const FlashSlae = [
 
     },
 ]
-
 
 // PRODUCTS SECTION 
 

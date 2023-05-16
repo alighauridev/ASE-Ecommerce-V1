@@ -55,7 +55,8 @@ const CategoryItems = () => {
                     productitems.map((items) => {
                         return (
                          
-                             <div>
+                          <Link to='/detail'>
+                               <div>
                                 <div className='product-img'>
                                     <div>
                                         <img src='./images/iphone.jpg' alt="" />
@@ -90,6 +91,7 @@ const CategoryItems = () => {
                                     </div>
                                 </div>
                             </div>
+                          </Link>
                           
                         )
                     })

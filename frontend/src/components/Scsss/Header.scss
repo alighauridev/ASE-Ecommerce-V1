@@ -22,9 +22,11 @@
         max-width: 1200px;
         width: 100%;
         margin: auto;
-       display: grid !important;
-       grid-template-columns: 1fr 2fr 1fr;
-       align-items: center;
+        display: grid !important;
+        grid-template-columns: 1fr 2fr 1fr;
+        align-items: center;
+        margin-left: 130px;
+    
 
         .search-button {
             input {

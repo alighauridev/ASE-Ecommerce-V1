@@ -14,7 +14,7 @@ import { Autoplay, Pagination, Navigation } from "swiper";
 import { IoIosFlash } from "react-icons/io";
 import "./Scss/FlashSale.scss";
 import { FlashSlae } from "../../Data";
-const FlashSale = () => {
+const FlashSale = ({data}) => {
     const products = [
         {
             brand: {

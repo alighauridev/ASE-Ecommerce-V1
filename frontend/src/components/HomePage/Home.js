@@ -29,7 +29,7 @@ const Home = () => {
             <TopProduct />
           </div>
           <div>
-            <FlashSale />
+            <FlashSale  />
           </div>
           <div>
             <LapTop />

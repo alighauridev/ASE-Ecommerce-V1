@@ -9,6 +9,7 @@ import Register from './components/User/Register';
 import ProtectedRoute from "./routing/ProtectedRoute";
 import "./App.css";
 import Category from "./components/Category/Category";
+import ProductDetail from "./components/ProductDetail/ProductDetail";
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/" element={<HomeScreen />} />
-
+          <Route path="/detail" element={<ProductDetail />} />
           <Route path="/category" element={<Category />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/user-profile" element={<ProfileScreen />} />
