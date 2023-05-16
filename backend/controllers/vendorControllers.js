@@ -8,18 +8,20 @@ const cloudinary = require("cloudinary");
 
 // Register vendor
 exports.registerVendor = asyncErrorHandler(async (req, res, next) => {
-    const { name, email, password, companyName, address, user } = req.body;
-
+    const { name, email, companyName, address, user } = req.body;
+    const parsedAddress = JSON.parse(address);
     const vendor = await Vendor.create({
         name,
         email,
-        password,
         companyName,
-        address,
+        address: parsedAddress,
         user,
     });
 
-    sendToken(vendor, 201, res);
+    res.status(201).json({
+        success: true,
+        vendor,
+    });
 });
 
 // Login Vendor

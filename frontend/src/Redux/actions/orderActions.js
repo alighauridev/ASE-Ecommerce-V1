@@ -131,3 +131,12 @@ export const payOrder = (id, paymentResult) => async (dispatch, getState) => {
         });
     }
 };
+export const updateOrder = [
+
+]
+export const clearErrors = [
+
+]
+export const deleteOrder = {
+
+}

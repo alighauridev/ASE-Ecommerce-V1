@@ -20,7 +20,7 @@ import {
 } from "../constants/productConstants";
 import axios from "axios";
 import { toast } from "react-toastify";
-import instance from "../../assets/axiosConfig";
+// import instance from "../../assets/axiosConfig";
 
 export const getProducts =
     (keyword = " ", pageNumber = "") =>
@@ -182,6 +182,11 @@ export const updateNoteAction =
         }
     };
 
+export const clearErrors = () => { };
+export const getProductDetails = () => { };
+export const updateProduct = () => { };
+export const createProduct = () => { };
+
 export const createReviewAction =
     (productId, review) => async (dispatch, getState) => {
         try {
@@ -217,3 +222,9 @@ export const createReviewAction =
             toast.error("already reviewd Submited!");
         }
     };
+export const deleteReview = () => { };
+export const getAllReviews = () => { };
+
+export const getAdminProducts = () => { };
+
+export const deleteProduct = () => { };
