@@ -8,6 +8,9 @@ import {
     LOAD_USER_REQUEST,
     LOAD_USER_SUCCESS,
     LOAD_USER_FAIL,
+    REGISTER_VENDOR_REQUEST,
+    REGISTER_VENDOR_SUCCESS,
+    REGISTER_VENDOR_FAIL,
     LOGOUT_USER_SUCCESS,
     LOGOUT_USER_FAIL,
     CLEAR_ERRORS,
@@ -95,6 +98,35 @@ export const registerUser = (userData) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: REGISTER_USER_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+};
+export const registerVendor = (userData) => async (dispatch) => {
+    try {
+
+        dispatch({ type: REGISTER_VENDOR_REQUEST });
+
+        const config = {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        }
+
+        const { data } = await axios.post(
+            '/api/v1/vendor/register',
+            userData,
+            config
+        );
+
+        dispatch({
+            type: REGISTER_VENDOR_SUCCESS,
+            payload: data.user,
+        });
+
+    } catch (error) {
+        dispatch({
+            type: REGISTER_VENDOR_FAIL,
             payload: error.response.data.message,
         });
     }

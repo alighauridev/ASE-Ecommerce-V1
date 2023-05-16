@@ -26,14 +26,14 @@ const product = require("./routes/productRoute");
 const order = require("./routes/orderRoute");
 const payment = require("./routes/paymentRoute");
 const category = require("./routes/categoryRoute");
-// const vendor = require("./routes/vendorRoutes");
+const vendor = require("./routes/vendorRoutes");
 
 app.use("/api/v1", user);
 app.use("/api/v1", product);
 app.use("/api/v1", order);
 app.use("/api/v1", payment);
 app.use("/api/v1", category);
-// app.use("/api/v1/vendor", vendor);
+app.use("/api/v1/vendor", vendor);
 
 // deployment
 __dirname = path.resolve();

@@ -6,7 +6,11 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clearErrors, registerUser } from "../../Redux/actions/userActions";
+import {
+  clearErrors,
+  registerUser,
+  registerVendor,
+} from "../../Redux/actions/userActions";
 import BackdropLoader from "../Layouts/BackdropLoader";
 import MetaData from "../Layouts/MetaData";
 import FormSidebar from "./FormSidebar";
@@ -15,9 +19,7 @@ const VendorRegister = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { loading, isAuthenticated, error } = useSelector(
-    (state) => state.user
-  );
+  const user = useSelector((state) => state.user.user._id);
 
   const [vendor, setVendor] = useState({
     name: "",
@@ -36,8 +38,7 @@ const VendorRegister = () => {
     gender: "",
   });
 
-  const { name, email, companyName, address, password, cpassword, gender } =
-    vendor;
+  const { name, email, companyName, address } = vendor;
 
   const [avatar, setAvatar] = useState();
   const [avatarPreview, setAvatarPreview] = useState("preview.png");
@@ -48,11 +49,13 @@ const VendorRegister = () => {
     const formData = new FormData();
     formData.set("name", name);
     formData.set("email", email);
-    formData.set("gender", gender);
-    formData.set("password", password);
-    formData.set("avatar", avatar);
+    formData.set("companyName", companyName);
+    formData.set("address", JSON.stringify(address));
 
-    dispatch(registerUser(formData));
+    // formData.set("user", user);
+
+    dispatch(registerVendor(formData));
+    navigate("/admin/dashboard");
   };
 
   const handleDataChange = (e) => {
@@ -71,7 +74,7 @@ const VendorRegister = () => {
     <>
       <MetaData title="Register | Flipkart" />
 
-      {loading && <BackdropLoader />}
+      {/* {loading && <BackdropLoader />} */}
       <main className="w-full mt-12 sm:pt-20 sm:mt-0">
         <div className="flex sm:w-4/6 sm:mt-4 m-auto mb-7 bg-white shadow-lg">
           <FormSidebar
@@ -89,6 +92,27 @@ const VendorRegister = () => {
 
               {/* <!-- input container column --> */}
               <div className="flex flex-col w-full justify-between sm:flex-row gap-3 items-center">
+                <div className="flex flex-col w-full justify-between sm:flex-col gap-3 items-center">
+                  <TextField
+                    fullWidth
+                    id="full-name"
+                    label="Full Name"
+                    name="name"
+                    value={name}
+                    onChange={handleDataChange}
+                    required
+                  />
+                  <TextField
+                    fullWidth
+                    id="email"
+                    label="Email"
+                    type="email"
+                    name="email"
+                    value={email}
+                    onChange={handleDataChange}
+                    required
+                  />
+                </div>
                 <TextField
                   fullWidth
                   id="companyName"
@@ -153,7 +177,7 @@ const VendorRegister = () => {
                 type="submit"
                 className="text-white py-3 w-full bg-primary-orange shadow hover:shadow-lg rounded-sm font-medium"
               >
-                Signup
+                Submit
               </button>
               {/* <Link
                 to="/login"

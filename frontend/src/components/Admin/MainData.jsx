@@ -1,19 +1,18 @@
 import { useEffect } from "react";
 import Chart from "chart.js/auto";
 import { Doughnut, Line, Pie, Bar } from "react-chartjs-2";
-import { getAdminProducts } from "../../actions/productAction";
+// import { getAdminProducts } from "../../Redux/actions/productActions";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllOrders } from "../../actions/orderAction";
-import { getAllUsers } from "../../actions/userAction";
-import { categories } from "../../utils/constants";
+import { getAllOrders } from "../../Redux/actions/orderActions";
+import { getAllUsers } from "../../Redux/actions/userActions";
 import MetaData from "../Layouts/MetaData";
-
+const categories = [];
 const MainData = () => {
   const dispatch = useDispatch();
 
-  const { products } = useSelector((state) => state.products);
-  const { orders } = useSelector((state) => state.allOrders);
-  const { users } = useSelector((state) => state.users);
+  const { products } = useSelector((state) => state.Products);
+  const { orders } = useSelector((state) => state.Orders);
+  const { users } = useSelector((state) => state.user);
 
   let outOfStock = 0;
 
@@ -24,7 +23,7 @@ const MainData = () => {
   });
 
   useEffect(() => {
-    dispatch(getAdminProducts());
+    // dispatch(getAdminProducts());
     dispatch(getAllOrders());
     dispatch(getAllUsers());
   }, [dispatch]);

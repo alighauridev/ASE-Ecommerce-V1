@@ -74,7 +74,7 @@ const Header = () => {
                           <Link to="/login">Login</Link>
                         </li>
                         <li style={{ margin: "0" }}>
-                          <Link to="/signup"> Signin</Link>
+                          <Link to="/register"> Signin</Link>
                         </li>
                         <li style={{ margin: "0" }}>
                           <Link to="/vendor/register"> Become a Seller</Link>
