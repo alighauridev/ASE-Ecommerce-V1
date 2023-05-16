@@ -5,11 +5,14 @@ import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import "./index.css"
 import Store from "../src/Redux/store/store.js";
+import GoogleTranslate from "./components/GoogleTranslate";
+
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={Store}>
+        <GoogleTranslate />
         <App />
       </Provider>
     </BrowserRouter>
