@@ -40,7 +40,13 @@ import {
     DELETE_USER_RESET,
     DELETE_USER_FAIL,
     REMOVE_USER_DETAILS,
-} from '../constants/userConstants';
+    REGISTER_VENDOR_REQUEST,
+    REGISTER_VENDOR_SUCCESS,
+    LOGOUT_VENDOR_SUCCESS,
+    REGISTER_VENDOR_FAIL,
+    LOGOUT_VENDOR_FAIL,
+    LOAD_VENDOR_FAIL,
+} from "../constants/userConstants";
 
 export const userReducer = (state = { user: {} }, { type, payload }) => {
     switch (type) {
@@ -81,13 +87,13 @@ export const userReducer = (state = { user: {} }, { type, payload }) => {
                 isAuthenticated: false,
                 user: null,
                 error: payload,
-            }
+            };
         case LOGOUT_USER_FAIL:
             return {
                 ...state,
                 loading: false,
                 error: payload,
-            }
+            };
         case CLEAR_ERRORS:
             return {
                 ...state,
@@ -97,52 +103,47 @@ export const userReducer = (state = { user: {} }, { type, payload }) => {
             return state;
     }
 };
-export const vendorReducer = (state = { user: {} }, { type, payload }) => {
+export const vendorReducer = (state = { vendor: {} }, { type, payload }) => {
     switch (type) {
-        case LOGIN_USER_REQUEST:
-        case REGISTER_USER_REQUEST:
-        case LOAD_USER_REQUEST:
+        case REGISTER_VENDOR_REQUEST:
             return {
                 loading: true,
                 isAuthenticated: false,
             };
-        case LOGIN_USER_SUCCESS:
-        case REGISTER_USER_SUCCESS:
-        case LOAD_USER_SUCCESS:
+        case REGISTER_VENDOR_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 isAuthenticated: true,
-                user: payload,
+                vendor: payload,
             };
-        case LOGOUT_USER_SUCCESS:
+        case LOGOUT_VENDOR_SUCCESS:
             return {
                 loading: false,
-                user: null,
+                vendor: null,
                 isAuthenticated: false,
             };
-        case LOGIN_USER_FAIL:
-        case REGISTER_USER_FAIL:
+        case REGISTER_VENDOR_FAIL:
             return {
                 ...state,
                 loading: false,
                 isAuthenticated: false,
-                user: null,
+                vendor: null,
                 error: payload,
             };
-        case LOAD_USER_FAIL:
+        case LOAD_VENDOR_FAIL:
             return {
                 loading: false,
                 isAuthenticated: false,
-                user: null,
+                vendor: null,
                 error: payload,
-            }
-        case LOGOUT_USER_FAIL:
+            };
+        case LOGOUT_VENDOR_FAIL:
             return {
                 ...state,
                 loading: false,
                 error: payload,
-            }
+            };
         case CLEAR_ERRORS:
             return {
                 ...state,
@@ -185,19 +186,19 @@ export const profileReducer = (state = {}, { type, payload }) => {
                 ...state,
                 loading: false,
                 error: payload,
-            }
+            };
         case UPDATE_PROFILE_RESET:
         case UPDATE_PASSWORD_RESET:
         case UPDATE_USER_RESET:
             return {
                 ...state,
                 isUpdated: false,
-            }
+            };
         case DELETE_USER_RESET:
             return {
                 ...state,
                 isDeleted: false,
-            }
+            };
         case CLEAR_ERRORS:
             return {
                 ...state,

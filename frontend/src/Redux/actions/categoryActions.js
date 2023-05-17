@@ -26,6 +26,9 @@ import {
     CATEGORY_WITH_SUBCATEGORIES_REQUEST,
     CATEGORY_WITH_SUBCATEGORIES_SUCCESS,
     CATEGORY_WITH_SUBCATEGORIES_FAIL,
+    VENDOR_CATEGORY_REQUEST,
+    VENDOR_CATEGORY_SUCCESS,
+    VENDOR_CATEGORY_FAIL,
 } from '../constants/categoryConstants';
 
 export const listCategories = () => async (dispatch) => {
@@ -41,6 +44,23 @@ export const listCategories = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: CATEGORY_LIST_FAIL,
+            payload: error.response && error.response.data.error ? error.response.data.error : error.message,
+        });
+    }
+};
+export const vendorCategories = () => async (dispatch) => {
+    try {
+        dispatch({ type: VENDOR_CATEGORY_REQUEST });
+
+        const { data } = await axios.get('/api/v1/categories');
+
+        dispatch({
+            type: VENDOR_CATEGORY_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type: VENDOR_CATEGORY_FAIL,
             payload: error.response && error.response.data.error ? error.response.data.error : error.message,
         });
     }

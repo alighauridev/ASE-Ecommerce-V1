@@ -1,7 +1,12 @@
 import { combineReducers } from "redux";
 import { getFilterProductReducer } from "./filterProductReducer";
 import { cartReducer } from "./cartReducer";
-import { allProductsReducer, productCreateReviewReducer, singleProductReducer } from "./productReducers";
+import {
+  allProductsReducer,
+  newProductReducer,
+  productCreateReviewReducer,
+  singleProductReducer,
+} from "./productReducers";
 import {
   forgotPasswordReducer,
   profileReducer,
@@ -9,6 +14,7 @@ import {
   userReducer,
   userRegisterReducer,
   userUpdateReducer,
+  vendorReducer,
 } from "./userReducers";
 import { shippingDetailsReducer } from "./checkoutReducer";
 import {
@@ -17,7 +23,10 @@ import {
   orderDetailsReducer,
   orderPayReducer,
 } from "./orderReducers";
-import { categoryListReducer } from "./categoryReducers";
+import {
+  VendorCategoryListReducer,
+  categoryListReducer,
+} from "./categoryReducers";
 const RootReducer = combineReducers({
   Products: allProductsReducer,
   ProductDetails: singleProductReducer,
@@ -25,6 +34,7 @@ const RootReducer = combineReducers({
   Cart: cartReducer,
   Checkout: shippingDetailsReducer,
   user: userReducer,
+  vendor: vendorReducer,
   profile: profileReducer,
   forgotPassword: forgotPasswordReducer,
   OrderCreate: orderCreateReducer,
@@ -33,6 +43,8 @@ const RootReducer = combineReducers({
   Orders: allOrdersReducer,
   filterData: getFilterProductReducer,
   Categories: categoryListReducer,
+  VendorCategories: VendorCategoryListReducer,
+  NewProduct: newProductReducer,
 });
 
 export default RootReducer;

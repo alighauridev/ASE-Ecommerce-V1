@@ -78,15 +78,14 @@ const Register = () => {
     }
   };
 
-  //   useEffect(() => {
-  //     if (error) {
-  //       enqueueSnackbar(error, { variant: "error" });
-  //       dispatch(clearErrors());
-  //     }
-  //     if (isAuthenticated) {
-  //       navigate("/");
-  //     }
-  //   }, [dispatch, error, isAuthenticated, navigate, enqueueSnackbar]);
+  useEffect(() => {
+    if (error) {
+      dispatch(clearErrors());
+    }
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [dispatch, error, isAuthenticated, navigate]);
 
   return (
     <>

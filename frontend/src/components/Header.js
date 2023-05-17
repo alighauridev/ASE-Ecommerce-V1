@@ -7,8 +7,11 @@ import { AiOutlineUser, AiOutlineShoppingCart } from "react-icons/ai";
 import { GiArchiveRegister } from "react-icons/gi";
 
 import { Link } from "react-router-dom";
+import { logoutUser } from "../Redux/actions/userActions";
 const Header = () => {
-  // const { userInfo } = useSelector((state) => state.auth)
+  const { loading, isAuthenticated, error, user } = useSelector(
+    (state) => state.user
+  );
   const dispatch = useDispatch();
 
   // automatically authenticate user if token is found
@@ -42,60 +45,87 @@ const Header = () => {
           </div>
           <nav className="container navigation">
             <div className="login">
-              <div className="icon">
-                <Link
-                  to="/login"
-                  style={{ textDecoration: "none", color: "black" }}
-                >
-                  <ul className="nav-links">
-                    <li>
-                      <Link to="" className="desktop-item">
-                        <div
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "10px ",
-                          }}
-                        >
-                          <span>
-                            <AiOutlineUser />{" "}
-                          </span>
-                          <span>Account</span>
-                        </div>
-                      </Link>
-                      <input
-                        type="checkbox"
-                        id="showDrop"
-                        style={{ display: "none" }}
-                      />
-                      <label htmlFor="showDrop" className="mobile-item"></label>
-                      <ul className="drop-menu">
-                        <li style={{ margin: "0" }}>
-                          <Link to="/login">Login</Link>
-                        </li>
-                        <li style={{ margin: "0" }}>
-                          <Link to="/register"> Signin</Link>
-                        </li>
-                        <li style={{ margin: "0" }}>
-                          <Link to="/vendor/register"> Become a Seller</Link>
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                </Link>
-              </div>
-              <div className="icon">
-                <span>
-                  <GiArchiveRegister />
-                </span>
-                <Link
-                  to="/register"
-                  style={{ textDecoration: "none", color: "black" }}
-                >
-                  {" "}
-                  <span>Register</span>{" "}
-                </Link>
-              </div>
+              {isAuthenticated && (
+                <div className="icon">
+                  <Link
+                    to="/login"
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
+                    <ul className="nav-links">
+                      <li>
+                        <Link to="" className="desktop-item">
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "10px ",
+                            }}
+                          >
+                            <span>
+                              <AiOutlineUser />{" "}
+                            </span>
+                            <span>{user?.name}</span>
+                          </div>
+                        </Link>
+                        <input
+                          type="checkbox"
+                          id="showDrop"
+                          style={{ display: "none" }}
+                        />
+                        <label
+                          htmlFor="showDrop"
+                          className="mobile-item"
+                        ></label>
+                        <ul className="drop-menu">
+                          <li style={{ margin: "0" }}>
+                            <Link to="/account">Profile</Link>
+                          </li>
+
+                          {!user?.vendor ? (
+                            <>
+                              <li style={{ margin: "0" }}>
+                                <Link to="/vendor/register">
+                                  {" "}
+                                  Become a Seller
+                                </Link>
+                              </li>
+                            </>
+                          ) : (
+                            <>
+                              <li style={{ margin: "0" }}>
+                                <Link to="/vendor/dashboard">
+                                  {" "}
+                                  Seller
+                                </Link>
+                              </li>
+                            </>
+                          )}
+                          <li
+                            onClick={() => dispatch(logoutUser())}
+                            style={{ margin: "0" }}
+                          >
+                            <Link to="">Logout</Link>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </Link>
+                </div>
+              )}
+              {!isAuthenticated && (
+                <div className="icon">
+                  <span>
+                    <GiArchiveRegister />
+                  </span>
+                  <Link
+                    to="/login"
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
+                    {" "}
+                    <span>Signup/Login</span>{" "}
+                  </Link>
+                </div>
+              )}
               <div className="icon">
                 <span>
                   <AiOutlineShoppingCart />

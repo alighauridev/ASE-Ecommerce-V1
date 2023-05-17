@@ -10,6 +10,21 @@ const cloudinary = require("cloudinary");
 exports.registerVendor = asyncErrorHandler(async (req, res, next) => {
     const { name, email, companyName, address, user } = req.body;
     const parsedAddress = JSON.parse(address);
+
+    // Fetch the user by their ID.
+    const foundUser = await User.findById(user);
+
+    if (!foundUser) {
+        // Handle the case where the user was not found.
+        return next(new Error('User not found'));
+    }
+
+    // Change the user's role to 'vendor'.
+    foundUser.role = 'vendor';
+
+    // Save the updated user.
+    await foundUser.save();
+
     const vendor = await Vendor.create({
         name,
         email,
@@ -18,11 +33,9 @@ exports.registerVendor = asyncErrorHandler(async (req, res, next) => {
         user,
     });
 
-    res.status(201).json({
-        success: true,
-        vendor,
-    });
+    sendToken(vendor, 200, res);
 });
+
 
 // Login Vendor
 exports.loginVendor = asyncErrorHandler(async (req, res, next) => {
@@ -104,17 +117,14 @@ exports.uploadProduct = asyncErrorHandler(async (req, res, next) => {
         cuttedPrice,
         category,
         stock,
-        auction,
-        classifiedAd,
     } = req.body;
 
-    const vendor = await Vendor.findById(req.vendor.id);
-
+    const vendor = await Vendor.findById(req.vendor); // Use findById instead of find
+    console.log(req.vendor);
     if (!vendor) {
         return next(new ErrorHandler("Vendor not found", 404));
     }
 
-    // Upload images to Cloudinary
     const imageUploadPromises = req.files.map(async (file) => {
         const result = await cloudinary.uploader.upload(file.path);
         return {
@@ -122,11 +132,11 @@ exports.uploadProduct = asyncErrorHandler(async (req, res, next) => {
             url: result.secure_url,
         };
     });
-    const images = await Promise.all(imageUploadPromises);
 
-    // Create product with images
-    const product
-        = await Product.create({
+    try {
+        const images = await Promise.all(imageUploadPromises);
+
+        const product = await Product.create({
             name,
             description,
             price,
@@ -134,17 +144,23 @@ exports.uploadProduct = asyncErrorHandler(async (req, res, next) => {
             images,
             category,
             stock,
-            auction,
-            classifiedAd,
-            vendor: req.vendor.id,
+            vendor: req.vendor,
         });
-    vendor.products.push(product._id);
-    await vendor.save();
 
-    res.status(201).json({
-        success: true,
-        product,
-    });
+        vendor.products.push(product._id);
+        await vendor.save();
+
+        res.status(201).json({
+            success: true,
+            product,
+        });
+    } catch (error) {
+        // Handle error
+        res.status(500).json({
+            success: false,
+            message: "Product creation failed",
+        });
+    }
 });
 
 // Update product

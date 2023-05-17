@@ -4,7 +4,9 @@ const Category = require("../models/categoryModel");
 
 exports.getCategories = async (req, res) => {
     try {
-        const categories = await Category.find();
+        const categories = await Category.find({
+            parentCategory: null,
+        }).populate("subcategories");
         res.send(categories);
     } catch (error) {
         res.status(500).send(error);
