@@ -248,7 +248,7 @@ const NewProduct = () => {
               value={stock}
               onChange={(e) => setStock(e.target.value)}
             />
-            <TextField
+            {/* <TextField
               label="Warranty"
               type="number"
               variant="outlined"
@@ -261,7 +261,7 @@ const NewProduct = () => {
               required
               value={warranty}
               onChange={(e) => setWarranty(e.target.value)}
-            />
+            /> */}
           </div>
 
           <div className="flex flex-col gap-2">
@@ -296,7 +296,7 @@ const NewProduct = () => {
             </div>
           </div>
 
-          <h2 className="font-medium">Brand Details</h2>
+          {/* <h2 className="font-medium">Brand Details</h2>
           <div className="flex justify-between gap-4 items-start">
             <TextField
               label="Brand"
@@ -329,11 +329,11 @@ const NewProduct = () => {
               />
               Choose Logo
             </label>
-          </div>
+          </div> */}
         </div>
 
         <div className="flex flex-col gap-2 m-2 sm:w-1/2">
-          <h2 className="font-medium">Specifications</h2>
+          {/* <h2 className="font-medium">Specifications</h2>
 
           <div className="flex justify-evenly gap-2 items-center">
             <TextField
@@ -360,9 +360,9 @@ const NewProduct = () => {
             >
               Add
             </span>
-          </div>
+          </div> */}
 
-          <div className="flex flex-col gap-1.5">
+          {/* <div className="flex flex-col gap-1.5">
             {specs.map((spec, i) => (
               <div className="flex justify-between items-center text-sm rounded bg-blue-50 py-1 px-2">
                 <p className="text-gray-500 font-medium">{spec.title}</p>
@@ -375,7 +375,7 @@ const NewProduct = () => {
                 </span>
               </div>
             ))}
-          </div>
+          </div> */}
 
           <h2 className="font-medium">Product Images</h2>
           <div className="flex gap-2 overflow-x-auto h-32 border rounded">

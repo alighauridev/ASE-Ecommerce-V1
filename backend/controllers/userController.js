@@ -26,13 +26,11 @@ exports.registerUser = asyncErrorHandler(async (req, res, next) => {
             public_id: myCloud.public_id,
             url: myCloud.secure_url,
         },
-        role: 'admin'
     });
     console.log(user);
     sendToken(user, 201, res);
 });
 
-// Login User
 exports.loginUser = asyncErrorHandler(async (req, res, next) => {
     const { email, password } = req.body;
 
@@ -52,8 +50,32 @@ exports.loginUser = asyncErrorHandler(async (req, res, next) => {
         return next(new ErrorHandler("Invalid Email or Password", 401));
     }
 
-    sendToken(user, 201, res);
+    // Generate JWT token first
+    const token = user.getJWTToken();
+
+    // Find vendor details for the user
+    const vendor = await Vendor.findOne({ user: user._id });
+
+    // Convert user to JSON object
+    const userObj = user.toObject();
+
+    if (!vendor) {
+        // If user is not a vendor, add a vendor property to userObj and set it to false
+        userObj.vendor = false;
+    } else {
+        // If user is a vendor, add a vendor property to userObj and set it to vendor details
+        userObj.vendor = vendor;
+    }
+
+    // Send token and userObj
+    res.status(201).json({
+        success: true,
+        token,
+        user: userObj,
+    });
 });
+
+
 
 // Logout User
 exports.logoutUser = asyncErrorHandler(async (req, res, next) => {

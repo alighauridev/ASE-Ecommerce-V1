@@ -27,15 +27,15 @@ const Login = () => {
 
   const redirect = location.search ? location.search.split("=")[1] : "account";
 
-  //   useEffect(() => {
-  //     if (error) {
-  //     //   enqueueSnackbar(error, { variant: "error" });
-  //       dispatch(clearErrors());
-  //     }
-  //     if (isAuthenticated) {
-  //       navigate(`/${redirect}`);
-  //     }
-  //   }, [dispatch, error, isAuthenticated, redirect, navigate, enqueueSnackbar]);
+  useEffect(() => {
+    if (error) {
+      //   enqueueSnackbar(error, { variant: "error" });
+      dispatch(clearErrors());
+    }
+    if (isAuthenticated) {
+      navigate(`/`);
+    }
+  }, [dispatch, error, isAuthenticated, redirect, navigate]);
 
   return (
     <>

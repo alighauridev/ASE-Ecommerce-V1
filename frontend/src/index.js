@@ -12,7 +12,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={Store}>
-        <GoogleTranslate />
+        {/* <GoogleTranslate /> */}
         <App />
       </Provider>
     </BrowserRouter>

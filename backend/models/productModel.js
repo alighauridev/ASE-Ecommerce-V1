@@ -51,6 +51,10 @@ const productSchema = new mongoose.Schema({
         endTime: Date,
         startingBid: Number,
     },
+    approved: {
+        type: Boolean,
+        default: false,
+    },
     classifiedAd: {
         isClassifiedAd: Boolean,
         promotionDuration: Number,

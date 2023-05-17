@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearErrors,
+  loadUser,
   registerUser,
   registerVendor,
 } from "../../Redux/actions/userActions";
@@ -20,7 +21,9 @@ const VendorRegister = () => {
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.user.user._id);
-
+  const { loading, isAuthenticated, error } = useSelector(
+    (state) => state.vendor
+  );
   const [vendor, setVendor] = useState({
     name: "",
     email: "",
@@ -52,10 +55,9 @@ const VendorRegister = () => {
     formData.set("companyName", companyName);
     formData.set("address", JSON.stringify(address));
 
-    // formData.set("user", user);
+    formData.set("user", user);
 
     dispatch(registerVendor(formData));
-    navigate("/admin/dashboard");
   };
 
   const handleDataChange = (e) => {
@@ -69,7 +71,12 @@ const VendorRegister = () => {
       setVendor({ ...vendor, [e.target.name]: e.target.value });
     }
   };
-
+  useEffect(() => {
+    if (!isAuthenticated) {
+      dispatch(loadUser());
+      navigate("/vendor/dashboard");
+    }
+  }, [isAuthenticated]);
   return (
     <>
       <MetaData title="Register | Flipkart" />

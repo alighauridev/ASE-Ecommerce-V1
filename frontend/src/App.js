@@ -31,7 +31,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/vendor/register" element={<VendorRegister />} />
           <Route path="/" element={<HomeScreen />} />
-          <Route path="/admin/dashboard" element={
+          <Route path="/vendor/dashboard" element={
 
             <Dashboard activeTab={0}>
               <MainData />

@@ -11,7 +11,7 @@ import ImageIcon from "@mui/icons-material/Image";
 
 import MetaData from "../Layouts/MetaData";
 import BackdropLoader from "../Layouts/BackdropLoader";
-const categories = [];
+import { vendorCategories } from "../../Redux/actions/categoryActions";
 const NewProduct = () => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
@@ -40,7 +40,8 @@ const NewProduct = () => {
 
   const [logo, setLogo] = useState("");
   const [logoPreview, setLogoPreview] = useState("");
-
+  const { categories } = useSelector((state) => state.VendorCategories);
+  const { user } = useSelector((state) => state.user);
   const handleSpecsChange = (e) => {
     setSpecsInput({ ...specsInput, [e.target.name]: e.target.value });
   };
@@ -100,62 +101,44 @@ const NewProduct = () => {
   const newProductSubmitHandler = (e) => {
     e.preventDefault();
 
-    // required field checks
-    if (highlights.length <= 0) {
-      enqueueSnackbar("Add Highlights", { variant: "warning" });
-      return;
-    }
-    if (!logo) {
-      enqueueSnackbar("Add Brand Logo", { variant: "warning" });
-      return;
-    }
-    if (specs.length <= 1) {
-      enqueueSnackbar("Add Minimum 2 Specifications", { variant: "warning" });
-      return;
-    }
-    if (images.length <= 0) {
-      enqueueSnackbar("Add Product Images", { variant: "warning" });
-      return;
-    }
-
     const formData = new FormData();
 
-    formData.set("name", name);
-    formData.set("description", description);
-    formData.set("price", price);
-    formData.set("cuttedPrice", cuttedPrice);
-    formData.set("category", category);
-    formData.set("stock", stock);
-    formData.set("warranty", warranty);
-    formData.set("brandname", brand);
-    formData.set("logo", logo);
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("price", price);
+    formData.append("cuttedPrice", cuttedPrice);
+    formData.append("category", category);
+    formData.append("stock", stock);
+    formData.append("vendor", user.vendor?._id);
 
     images.forEach((image) => {
       formData.append("images", image);
     });
+    // highlights.forEach((h) => {
+    //   formData.append("highlights", h);
+    // });
 
-    highlights.forEach((h) => {
-      formData.append("highlights", h);
-    });
-
-    specs.forEach((s) => {
-      formData.append("specifications", JSON.stringify(s));
-    });
+    // specs.forEach((s) => {
+    //   formData.append("specifications", JSON.stringify(s));
+    // });
 
     dispatch(createProduct(formData));
   };
 
-  //   useEffect(() => {
-  //     if (error) {
-  //       enqueueSnackbar(error, { variant: "error" });
-  //       dispatch(clearErrors());
-  //     }
-  //     if (success) {
-  //       enqueueSnackbar("Product Created", { variant: "success" });
-  //       dispatch({ type: NEW_PRODUCT_RESET });
-  //       navigate("/admin/products");
-  //     }
-  //   }, [dispatch, error, success, navigate, enqueueSnackbar]);
+  // useEffect(() => {
+  //   if (error) {
+  //     enqueueSnackbar(error, { variant: "error" });
+  //     dispatch(clearErrors());
+  //   }
+  //   if (success) {
+  //     enqueueSnackbar("Product Created", { variant: "success" });
+  //     dispatch({ type: NEW_PRODUCT_RESET });
+  //     navigate("/admin/products");
+  //   }
+  // }, [dispatch, error, success, navigate, enqueueSnackbar]);
+  useEffect(() => {
+    dispatch(vendorCategories());
+  }, [dispatch]);
 
   return (
     <>
@@ -228,12 +211,13 @@ const NewProduct = () => {
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
-              {categories.map((el, i) => (
-                <MenuItem value={el} key={i}>
-                  {el}
+              {categories?.map((el, i) => (
+                <MenuItem value={el._id} key={i}>
+                  {el.name}
                 </MenuItem>
               ))}
             </TextField>
+
             <TextField
               label="Stock"
               type="number"
@@ -248,7 +232,7 @@ const NewProduct = () => {
               value={stock}
               onChange={(e) => setStock(e.target.value)}
             />
-            <TextField
+            {/* <TextField
               label="Warranty"
               type="number"
               variant="outlined"
@@ -261,10 +245,10 @@ const NewProduct = () => {
               required
               value={warranty}
               onChange={(e) => setWarranty(e.target.value)}
-            />
+            /> */}
           </div>
 
-          <div className="flex flex-col gap-2">
+          {/* <div className="flex flex-col gap-2">
             <div className="flex justify-between items-center border rounded">
               <input
                 value={highlightInput}
@@ -294,9 +278,9 @@ const NewProduct = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
 
-          <h2 className="font-medium">Brand Details</h2>
+          {/* <h2 className="font-medium">Brand Details</h2>
           <div className="flex justify-between gap-4 items-start">
             <TextField
               label="Brand"
@@ -329,11 +313,11 @@ const NewProduct = () => {
               />
               Choose Logo
             </label>
-          </div>
+          </div> */}
         </div>
 
         <div className="flex flex-col gap-2 m-2 sm:w-1/2">
-          <h2 className="font-medium">Specifications</h2>
+          {/* <h2 className="font-medium">Specifications</h2>
 
           <div className="flex justify-evenly gap-2 items-center">
             <TextField
@@ -360,7 +344,7 @@ const NewProduct = () => {
             >
               Add
             </span>
-          </div>
+          </div> */}
 
           <div className="flex flex-col gap-1.5">
             {specs.map((spec, i) => (

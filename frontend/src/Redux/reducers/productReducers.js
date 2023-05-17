@@ -8,9 +8,14 @@ import {
     PRODUCT_DETAILS_FAIL,
     PRODUCT_DETAILS_REQUEST,
     PRODUCT_DETAILS_SUCCESS,
+    CLEAR_ERRORS,
     PRODUCT_LIST_FAIL,
     PRODUCT_LIST_REQUEST,
     PRODUCT_LIST_SUCCESS,
+    NEW_PRODUCT_FAIL,
+    NEW_PRODUCT_REQUEST,
+    NEW_PRODUCT_RESET,
+    NEW_PRODUCT_SUCCESS,
 } from "../constants/productConstants";
 
 const initialstate = {
@@ -53,7 +58,40 @@ export const productCreateReviewReducer = (state = {}, action) => {
     }
 };
 
-
+// New Product Reducer
+export const newProductReducer = (state = { product: {} }, { type, payload }) => {
+    switch (type) {
+        case NEW_PRODUCT_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            };
+        case NEW_PRODUCT_SUCCESS:
+            return {
+                loading: false,
+                success: payload.success,
+                product: payload.product,
+            };
+        case NEW_PRODUCT_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: payload,
+            };
+        case NEW_PRODUCT_RESET:
+            return {
+                ...state,
+                success: false,
+            };
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null,
+            };
+        default:
+            return state;
+    }
+}
 
 // get single products 
 
