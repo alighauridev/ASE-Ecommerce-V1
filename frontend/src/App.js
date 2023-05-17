@@ -19,6 +19,9 @@ import UpdateProduct from "./components/Admin/UpdateProduct.jsx";
 import UserTable from "./components/Admin/UserTable.jsx";
 import UpdateUser from "./components/Admin/UpdateUser.jsx";
 import ReviewsTable from "./components/Admin/ReviewsTable.jsx";
+import ProductDetail from './components/ProductDetail/ProductDetail'
+import ProductDetailMain from "./components/ProductDetail/ProductDetailMain";
+import Cart from "./components/Cart/Cart";
 
 function App() {
   return (
@@ -31,6 +34,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/vendor/register" element={<VendorRegister />} />
           <Route path="/" element={<HomeScreen />} />
+          <Route path="/cart" element={<Cart/>}/>
+          <Route path="/detail" element={<ProductDetailMain/>}/>
           <Route path="/admin/dashboard" element={
 
             <Dashboard activeTab={0}>

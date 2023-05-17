@@ -20,7 +20,7 @@
     }
     ul{
         list-style: none;
-        margin-left: -38px;
+   
     }
     .footer{
      
@@ -59,27 +59,30 @@
         font-weight: 300;
         color: #ffffff;
         display: block;
-        transition: all 0.3s ease;
+     
     }
     .footer-col ul li a:hover{
         color: #ffffff;
-        padding-left: 8px;
+        
     }
     .footer-col .social-links a{
         display: inline-block;
-        height: 40px;
+        height: 40px
+    px
+    ;
         width: 40px;
-        background-color: rgba(255,255,255,0.2);
-        margin:0 10px 10px 0;
+        /* background-color: rgba(255, 255, 255, 0.2); */
+        margin: 0 10px 10px 0;
         text-align: center;
         line-height: 40px;
         border-radius: 50%;
         color: #ffffff;
-        transition: all 0.5s ease;
+       
+        font-size: 25px;
     }
     .footer-col .social-links a:hover{
-        color: #24262b;
-        background-color: #ffffff;
+  
+      
     }
     
     /*responsive*/

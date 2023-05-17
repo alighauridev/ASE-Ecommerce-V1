@@ -101,7 +101,7 @@ const Header = () => {
                   <AiOutlineShoppingCart />
                 </span>
                 <Link
-                  to="/user-profile"
+                  to="/cart"
                   style={{ textDecoration: "none", color: "black" }}
                 >
                   <span>Cart</span>{" "}
