@@ -19,6 +19,9 @@ import UpdateProduct from "./components/Admin/UpdateProduct.jsx";
 import UserTable from "./components/Admin/UserTable.jsx";
 import UpdateUser from "./components/Admin/UpdateUser.jsx";
 import ReviewsTable from "./components/Admin/ReviewsTable.jsx";
+import ProductDetail from './components/ProductDetail/ProductDetail'
+import ProductDetailMain from "./components/ProductDetail/ProductDetailMain";
+import Cart from "./components/Cart/Cart";
 
 function App() {
   return (
