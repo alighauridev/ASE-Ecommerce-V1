@@ -3,14 +3,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllOrders } from "../../Redux/actions/orderActions";
 import { toast, ToastContainer } from "react-toastify";
 import Orders from "./Orders";
-
+import { getAllProducts } from "../../Redux/actions/productActions";
+import axios from "axios";
 const OrderMain = () => {
-    const TotalOrders = useSelector((state) => state.Orders);
-    const { loading, error, orders } = TotalOrders;
+    const [change, setChange] = useState(1)
+    const data = useSelector((state) => state.Products.products)
+    const { products } = data;
     const dispatch = useDispatch();
+
+    const approveProduct = (productId) => {
+        setChange(productId)
+        axios
+            .patch(`/api/v1/admin/products/${productId}/approve`)
+            .then((response) => {
+                console.log("Product approved successfully");
+                // Perform any additional actions or update the product list
+            })
+            .catch((error) => {
+                console.error("An error occurred while approving the product", error);
+            });
+    };
     useEffect(() => {
-        dispatch(getAllOrders());
-    }, [dispatch, error]);
+        dispatch(getAllProducts());
+    }, [dispatch, change]);
 
     return (
         <section className="content-main">
@@ -43,7 +58,7 @@ const OrderMain = () => {
                 </header>{" "}
                 <div className="card-body">
                     <div className="table-responsive">
-                        <Orders orders={orders} />
+                        <Orders approveProduct={approveProduct} products={products} />
                     </div>{" "}
                 </div>{" "}
             </div>{" "}

@@ -16,6 +16,8 @@ const {
 
 router.post("/register", registerVendor);
 router.post("/login", loginVendor);
+router.get('/:vendorId/products', getVendorProducts);
+
 router.get("/details", getVendorDetails);
 router.put("/profile/update", updateVendorProfile);
 router.put("/password/update", updateVendorPassword);

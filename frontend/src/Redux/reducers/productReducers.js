@@ -16,6 +16,10 @@ import {
     NEW_PRODUCT_REQUEST,
     NEW_PRODUCT_RESET,
     NEW_PRODUCT_SUCCESS,
+    DELETE_PRODUCT_RESET,
+    DELETE_PRODUCT_FAIL,
+    DELETE_PRODUCT_SUCCESS,
+    DELETE_PRODUCT_REQUEST,
 } from "../constants/productConstants";
 
 const initialstate = {
@@ -59,7 +63,7 @@ export const productCreateReviewReducer = (state = {}, action) => {
 };
 
 // New Product Reducer
-export const newProductReducer = (state = { product: {} }, { type, payload }) => {
+export const newProductReducer = (state = { loading: false, success: false, product: {} }, { type, payload }) => {
     switch (type) {
         case NEW_PRODUCT_REQUEST:
             return {
@@ -93,6 +97,7 @@ export const newProductReducer = (state = { product: {} }, { type, payload }) =>
     }
 }
 
+
 // get single products 
 
 export const singleProductReducer = (state = { product: { reviews: [] } }, action) => {
@@ -107,3 +112,39 @@ export const singleProductReducer = (state = { product: { reviews: [] } }, actio
             return state;
     }
 };
+// New Product Reducer
+export const productReducer = (state = {}, { type, payload }) => {
+    switch (type) {
+        case DELETE_PRODUCT_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            };
+
+        case DELETE_PRODUCT_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                isDeleted: payload,
+            };
+        case DELETE_PRODUCT_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: payload,
+            };
+
+        case DELETE_PRODUCT_RESET:
+            return {
+                ...state,
+                isDeleted: false,
+            };
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null,
+            };
+        default:
+            return state;
+    }
+}

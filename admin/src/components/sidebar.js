@@ -71,7 +71,7 @@ const Sidebar = () => {
                                 to="/orders"
                             >
                                 <i className="icon fas fa-bags-shopping"></i>
-                                <span className="text">Orders</span>
+                                <span className="text">New Products</span>
                             </NavLink>
                         </li>
                         <li className="menu-item">

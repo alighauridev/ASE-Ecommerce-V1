@@ -13,6 +13,9 @@ import {
     PRODUCT_DELETE_SUCCESS,
     PRODUCT_DETAILS_FAIL,
     PRODUCT_DETAILS_REQUEST,
+    DELETE_PRODUCT_REQUEST,
+    DELETE_PRODUCT_SUCCESS,
+    DELETE_PRODUCT_FAIL,
     PRODUCT_DETAILS_SUCCESS,
     PRODUCT_LIST_FAIL,
     PRODUCT_LIST_REQUEST,
@@ -33,7 +36,7 @@ export const getProducts =
                     type: PRODUCT_LIST_REQUEST,
                 });
 
-                const { data } = await axios.get(`/api/products?keyword=&pageNumber=1`);
+                const { data } = await axios.get(`/api/v1/products/all`);
                 console.log(data);
                 dispatch({
                     type: PRODUCT_LIST_SUCCESS,
@@ -245,4 +248,19 @@ export const getAllReviews = () => { };
 
 export const getAdminProducts = () => { };
 
-export const deleteProduct = () => { };
+export const deleteProduct = (id) => async (dispatch) => {
+    try {
+        dispatch({ type: DELETE_PRODUCT_REQUEST });
+        const { data } = await axios.delete(`/api/v1/vendor/product/${id}`);
+
+        dispatch({
+            type: DELETE_PRODUCT_SUCCESS,
+            payload: data.success,
+        });
+    } catch (error) {
+        dispatch({
+            type: DELETE_PRODUCT_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+}

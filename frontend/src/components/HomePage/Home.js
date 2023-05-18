@@ -8,10 +8,12 @@ import FlashSale from "./FlashSale";
 import LapTop from "./LapTop";
 import Footer from "../Reuseable/Footer";
 import { listCategories } from '../../Redux/actions/categoryActions';
+import { getProducts } from '../../Redux/actions/productActions';
 const Home = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listCategories())
+    dispatch(getProducts())
   }, [])
   return (
     <div className="home-background">
@@ -29,7 +31,7 @@ const Home = () => {
             <TopProduct />
           </div>
           <div>
-            <FlashSale  />
+            <FlashSale />
           </div>
           <div>
             <LapTop />

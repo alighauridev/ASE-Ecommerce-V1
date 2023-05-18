@@ -17,7 +17,7 @@ const NewProduct = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
-  //   const { loading, success, error } = useSelector((state) => state.newProduct);
+  const { loading, success } = useSelector((state) => state.NewProduct);
 
   const [highlights, setHighlights] = useState([]);
   const [highlightInput, setHighlightInput] = useState("");
@@ -37,7 +37,7 @@ const NewProduct = () => {
   const [brand, setBrand] = useState("");
   const [images, setImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
-
+  const [image, setImage] = useState("");
   const [logo, setLogo] = useState("");
   const [logoPreview, setLogoPreview] = useState("");
   const { categories } = useSelector((state) => state.VendorCategories);
@@ -91,7 +91,7 @@ const NewProduct = () => {
       reader.onload = () => {
         if (reader.readyState === 2) {
           setImagesPreview((oldImages) => [...oldImages, reader.result]);
-          setImages((oldImages) => [...oldImages, reader.result]);
+          setImage(reader.result);
         }
       };
       reader.readAsDataURL(file);
@@ -111,9 +111,7 @@ const NewProduct = () => {
     formData.append("stock", stock);
     formData.append("vendor", user.vendor?._id);
 
-    images.forEach((image) => {
-      formData.append("images", image);
-    });
+    formData.set("image", image);
     // highlights.forEach((h) => {
     //   formData.append("highlights", h);
     // });
@@ -125,17 +123,13 @@ const NewProduct = () => {
     dispatch(createProduct(formData));
   };
 
-  // useEffect(() => {
-  //   if (error) {
-  //     enqueueSnackbar(error, { variant: "error" });
-  //     dispatch(clearErrors());
-  //   }
-  //   if (success) {
-  //     enqueueSnackbar("Product Created", { variant: "success" });
-  //     dispatch({ type: NEW_PRODUCT_RESET });
-  //     navigate("/admin/products");
-  //   }
-  // }, [dispatch, error, success, navigate, enqueueSnackbar]);
+  useEffect(() => {
+    if (success) {
+      enqueueSnackbar("Product Created", { variant: "success" });
+      dispatch({ type: NEW_PRODUCT_RESET });
+      navigate("/vendor/products");
+    }
+  }, [dispatch, success, enqueueSnackbar]);
   useEffect(() => {
     dispatch(vendorCategories());
   }, [dispatch]);
@@ -376,7 +370,7 @@ const NewProduct = () => {
           <label className="rounded font-medium bg-gray-400 text-center cursor-pointer text-white p-2 shadow hover:shadow-lg my-2">
             <input
               type="file"
-              name="images"
+              name="image"
               accept="image/*"
               multiple
               onChange={handleProductImageChange}

@@ -72,8 +72,8 @@ const VendorRegister = () => {
     }
   };
   useEffect(() => {
-    if (!isAuthenticated) {
-      dispatch(loadUser());
+    if (isAuthenticated) {
+      dispatch(loadUser(user));
       navigate("/vendor/dashboard");
     }
   }, [isAuthenticated]);

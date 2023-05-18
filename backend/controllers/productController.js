@@ -66,6 +66,28 @@ exports.searchProducts = async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 };
+exports.approveProduct = async (req, res) => {
+    try {
+        const productId = req.params.productId;
+
+        // Find the product by its ID
+        const product = await Product.findById(productId);
+
+        if (!product) {
+            return res.status(404).json({ error: "Product not found" });
+        }
+
+        // Update the approved field to true
+        product.approved = true;
+
+        // Save the updated product
+        await product.save();
+
+        res.status(200).json({ message: "Product approved successfully" });
+    } catch (error) {
+        res.status(500).json({ error: "An error occurred while approving the product" });
+    }
+};
 
 
 // Get All Products
@@ -104,6 +126,23 @@ exports.getProducts = asyncErrorHandler(async (req, res, next) => {
         products,
     });
 });
+// Get All Products ---Product Sliders
+exports.getApprovedProducts = asyncErrorHandler(async (req, res, next) => {
+    const products = await Product.find({ approved: true });
+
+    res.status(200).json({
+        success: true,
+        products,
+    });
+});
+// exports.getProducts = asyncErrorHandler(async (req, res, next) => {
+//     const products = await Product.find({ approved: true });
+
+//     res.status(200).json({
+//         success: true,
+//         products,
+//     });
+// });
 
 // Get Product Details
 exports.getProductDetails = asyncErrorHandler(async (req, res, next) => {
@@ -261,9 +300,7 @@ exports.deleteProduct = asyncErrorHandler(async (req, res, next) => {
         return next(new ErrorHandler("Product Not Found", 404));
     }
 
-    for (let i = 0; i < product.images.length; i++) {
-        await cloudinary.v2.uploader.destroy(product.images[i].public_id);
-    }
+
 
     await product.remove();
 

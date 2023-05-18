@@ -59,7 +59,7 @@ export const getAllProducts = () => async (dispatch, getState) => {
             },
         };
 
-        const { data } = await axios.get(`/api/products/all`, config);
+        const { data } = await axios.get(`/api/v1/admin/products/all`, config);
 
         dispatch({
             type: PRODUCT_LIST_SUCCESS,

@@ -153,7 +153,7 @@ const NewProduct = () => {
     if (success) {
       enqueueSnackbar("Product Created", { variant: "success" });
       dispatch({ type: NEW_PRODUCT_RESET });
-      navigate("/admin/products");
+      navigate("/vendor/products");
     }
   }, [dispatch, error, success, navigate, enqueueSnackbar]);
 

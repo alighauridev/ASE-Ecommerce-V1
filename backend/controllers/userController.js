@@ -93,11 +93,30 @@ exports.logoutUser = asyncErrorHandler(async (req, res, next) => {
 // Get User Details
 exports.getUserDetails = asyncErrorHandler(async (req, res, next) => {
 
-    const user = await User.findById(req.user.id);
+    const user = await User.findById(req.body.user);
 
-    res.status(200).json({
+    // Generate JWT token first
+    const token = user.getJWTToken();
+
+    // Find vendor details for the user
+    const vendor = await Vendor.findOne({ user: req.body.user });
+
+    // Convert user to JSON object
+    const userObj = user.toObject();
+
+    if (!vendor) {
+        // If user is not a vendor, add a vendor property to userObj and set it to false
+        userObj.vendor = false;
+    } else {
+        // If user is a vendor, add a vendor property to userObj and set it to vendor details
+        userObj.vendor = vendor;
+    }
+
+    // Send token and userObj
+    res.status(201).json({
         success: true,
-        user,
+        token,
+        user: userObj,
     });
 });
 

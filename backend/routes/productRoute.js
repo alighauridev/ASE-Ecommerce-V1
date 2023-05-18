@@ -15,6 +15,8 @@ const {
     deleteProductByVendor,
     updateProductByVendor,
     getProductsByCategory,
+    approveProduct,
+    getApprovedProducts,
 } = require("../controllers/productController");
 const {
     isAuthenticatedUser,
@@ -25,7 +27,10 @@ const {
 const router = express.Router();
 
 router.route("/products").get(getAllProducts);
-router.route("/products/all").get(getProducts);
+router.route("/vendor/product/:id").delete(deleteProduct);
+router.route("/products/all").get(getApprovedProducts);
+router.route("/admin/products/all").get(getProducts);
+router.patch("/admin/products/:productId/approve", approveProduct);
 router.get("/search", searchProducts);
 router
     .route("/admin/products")
@@ -37,7 +42,7 @@ router
 router
     .route("/admin/product/:id")
     .put(isAuthenticatedUser, authorizeRoles("admin"), updateProduct)
-    .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteProduct);
+    .delete(authorizeRoles("admin"), deleteProduct);
 
 router.route("/product/:id").get(getProductDetails);
 

@@ -129,11 +129,11 @@ export const registerVendor = (userData) => async (dispatch) => {
 };
 
 // Load User
-export const loadUser = () => async (dispatch) => {
+export const loadUser = (user) => async (dispatch) => {
     try {
         dispatch({ type: LOAD_USER_REQUEST });
 
-        const { data } = await axios.get("/api/v1/me");
+        const { data } = await axios.post("/api/v1/me", { user });
 
         dispatch({
             type: LOAD_USER_SUCCESS,

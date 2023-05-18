@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { useDispatch, useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
@@ -15,11 +15,28 @@ import MetaData from "../Layouts/MetaData";
 import BackdropLoader from "../Layouts/BackdropLoader";
 
 const ProductTable = () => {
+  const [products, setProducts] = useState();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
-  const { products, error } = useSelector((state) => state.Products);
-  const {} = useSelector((state) => state.ProductDetails);
+  const { user } = useSelector((state) => state.user);
+  const fetchVendorProducts = async () => {
+    try {
+      const response = await fetch(
+        `/api/v1/vendor/${user.vendor._id}/products`
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      setProducts(data.products);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+  useEffect(() => {
+    fetchVendorProducts();
+  }, []);
 
   //   useEffect(() => {
   //     if (error) {
@@ -122,24 +139,36 @@ const ProductTable = () => {
       },
     },
     {
-      field: "rating",
-      headerName: "Rating",
-      type: "number",
+      field: "approved",
+      headerName: "Status",
+      type: "boolean",
       minWidth: 100,
-      flex: 0.1,
-      align: "left",
       headerAlign: "left",
+      align: "left",
+      flex: 0.2,
       renderCell: (params) => {
-        return (
-          <Rating
-            readOnly
-            value={params.row.rating}
-            size="small"
-            precision={0.5}
-          />
-        );
+        return <span>{params.row.approved ? "Approved" : "Not Approved"}</span>;
       },
     },
+    // {
+    //   field: "rating",
+    //   headerName: "Rating",
+    //   type: "number",
+    //   minWidth: 100,
+    //   flex: 0.1,
+    //   align: "left",
+    //   headerAlign: "left",
+    //   renderCell: (params) => {
+    //     return (
+    //       <Rating
+    //         readOnly
+    //         value={params.row.rating}
+    //         size="small"
+    //         precision={0.5}
+    //       />
+    //     );
+    //   },
+    // },
     {
       field: "actions",
       headerName: "Actions",
@@ -166,12 +195,12 @@ const ProductTable = () => {
       rows.unshift({
         id: item._id,
         name: item.name,
-        image: item.images[0].url,
+        image: item.image.url,
         category: item.category,
         stock: item.stock,
         price: item.price,
         cprice: item.cuttedPrice,
-        rating: item.ratings,
+        approved: item.approved,
       });
     });
 
@@ -184,7 +213,7 @@ const ProductTable = () => {
       <div className="flex justify-between items-center">
         <h1 className="text-lg font-medium uppercase">products</h1>
         <Link
-          to="/admin/new_product"
+          to="/vendor/new_product"
           className="py-2 px-4 rounded shadow font-medium text-white bg-primary-blue hover:shadow-lg"
         >
           New Product

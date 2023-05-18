@@ -55,7 +55,7 @@ function App() {
 
           } ></Route>
 
-          <Route path="/admin/products" element={
+          <Route path="/vendor/products" element={
 
             <Dashboard activeTab={2}>
               <ProductTable />
@@ -64,7 +64,7 @@ function App() {
 
           } ></Route>
 
-          <Route path="/admin/new_product" element={
+          <Route path="/vendor/new_product" element={
 
             <Dashboard activeTab={3}>
               <NewProduct />

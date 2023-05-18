@@ -19,18 +19,14 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: [true, "Please enter cutted price"],
     },
-    images: [
-        {
-            public_id: {
-                type: String,
-                required: true,
-            },
-            url: {
-                type: String,
-                required: true,
-            },
+    image: {
+        public_id: {
+            type: String,
         },
-    ],
+        url: {
+            type: String,
+        },
+    },
 
     category: {
         type: mongoose.Schema.Types.ObjectId,

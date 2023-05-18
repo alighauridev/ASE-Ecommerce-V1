@@ -101,7 +101,10 @@ const Header = () => {
                             </>
                           )}
                           <li
-                            onClick={() => dispatch(logoutUser())}
+                            onClick={() => {
+                              dispatch(logoutUser());
+                              window.location.reload();
+                            }}
                             style={{ margin: "0" }}
                           >
                             <Link to="">Logout</Link>
