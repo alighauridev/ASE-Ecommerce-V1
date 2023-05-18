@@ -20,7 +20,11 @@ const navMenu = [
     label: "Dashboard",
     ref: "/vendor/dashboard",
   },
-
+  {
+    icon: <ShoppingBagIcon />,
+    label: "Orders",
+    ref: "/vendor/products",
+  },
   {
     icon: <InventoryIcon />,
     label: "Products",

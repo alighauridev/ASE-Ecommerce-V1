@@ -5,12 +5,13 @@ import moment from "moment";
 const Orders = ({ products, approveProduct }) => {
     const handleApproveClick = (id) => {
         approveProduct(id);
+        window.location.reload();
     };
     return (
         <table className="table">
             <thead>
                 <tr>
-                    <th scope="col"> Name </th> <th scope="col"> Email </th>{" "}
+                    <th scope="col"> Name </th> <th scope="col"> description </th>{" "}
                     <th scope="col"> Status </th> <th> Date </th>{" "}
                     <th scope="col" className="text-end">
                         Action{" "}

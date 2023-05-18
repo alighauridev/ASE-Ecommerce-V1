@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { useDispatch, useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   clearErrors,
   deleteProduct,
@@ -17,7 +17,10 @@ import BackdropLoader from "../Layouts/BackdropLoader";
 const ProductTable = () => {
   const [products, setProducts] = useState();
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+
   const { enqueueSnackbar } = useSnackbar();
+  const { isDeleted } = useSelector((state) => state.ProductDelete || {});
 
   const { user } = useSelector((state) => state.user);
   const fetchVendorProducts = async () => {
@@ -34,10 +37,13 @@ const ProductTable = () => {
       console.error("Error:", error);
     }
   };
+  const navigate = useNavigate();
+  useEffect(() => {
+    fetchVendorProducts();
+  }, [open]);
   useEffect(() => {
     fetchVendorProducts();
   }, []);
-
   //   useEffect(() => {
   //     if (error) {
   //       enqueueSnackbar(error, { variant: "error" });
@@ -56,6 +62,8 @@ const ProductTable = () => {
 
   const deleteProductHandler = (id) => {
     dispatch(deleteProduct(id));
+    setOpen(false);
+    navigate("/vendor/new_product");
   };
 
   const columns = [
@@ -182,6 +190,8 @@ const ProductTable = () => {
             editRoute={"product"}
             deleteHandler={deleteProductHandler}
             id={params.row.id}
+            open={open}
+            setOpen={setOpen}
           />
         );
       },
