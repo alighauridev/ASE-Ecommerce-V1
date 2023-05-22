@@ -110,7 +110,8 @@ function App() {
             </Dashboard>
 
           } ></Route>
-
+<Route path="/detail" element={<ProductDetailMain/>}/>
+<Route path="/cart" element={<Cart/>}/>
           <Route path="/category" element={<Category />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/user-profile" element={<ProfileScreen />} />
