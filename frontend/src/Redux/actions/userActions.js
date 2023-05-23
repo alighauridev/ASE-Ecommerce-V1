@@ -41,6 +41,7 @@ import {
     LOAD_VENDOR_REQUEST,
 } from "../constants/userConstants";
 import axios from "axios";
+import axiosa from '../../api/axiosa';
 
 // Login User
 export const loginUser = (email, password) => async (dispatch) => {
@@ -53,7 +54,7 @@ export const loginUser = (email, password) => async (dispatch) => {
             },
         };
 
-        const { data } = await axios.post(
+        const { data } = await axiosa.post(
             "/api/v1/login",
             { email, password },
             config
@@ -87,7 +88,7 @@ export const registerUser = (userData) => async (dispatch) => {
             },
         };
 
-        const { data } = await axios.post("/api/v1/register", userData, config);
+        const { data } = await axiosa.post("/api/v1/register", userData, config);
 
         dispatch({
             type: REGISTER_USER_SUCCESS,
@@ -110,7 +111,7 @@ export const registerVendor = (userData) => async (dispatch) => {
             },
         };
 
-        const { data } = await axios.post(
+        const { data } = await axiosa.post(
             "/api/v1/vendor/register",
             userData,
             config
@@ -133,7 +134,7 @@ export const loadUser = (user) => async (dispatch) => {
     try {
         dispatch({ type: LOAD_USER_REQUEST });
 
-        const { data } = await axios.post("/api/v1/me", { user });
+        const { data } = await axiosa.post("/api/v1/me", { user });
 
         dispatch({
             type: LOAD_USER_SUCCESS,
@@ -150,7 +151,7 @@ export const loadUser = (user) => async (dispatch) => {
 // Logout User
 export const logoutUser = () => async (dispatch) => {
     try {
-        await axios.get("/api/v1/logout");
+        await axiosa.get("/api/v1/logout");
         dispatch({ type: LOGOUT_USER_SUCCESS });
     } catch (error) {
         dispatch({
@@ -171,7 +172,7 @@ export const updateProfile = (userData) => async (dispatch) => {
             },
         };
 
-        const { data } = await axios.put("/api/v1/me/update", userData, config);
+        const { data } = await axiosa.put("/api/v1/me/update", userData, config);
 
         dispatch({
             type: UPDATE_PROFILE_SUCCESS,
@@ -196,7 +197,7 @@ export const updatePassword = (passwords) => async (dispatch) => {
             },
         };
 
-        const { data } = await axios.put(
+        const { data } = await axiosa.put(
             "/api/v1/password/update",
             passwords,
             config
@@ -225,7 +226,7 @@ export const forgotPassword = (email) => async (dispatch) => {
             },
         };
 
-        const { data } = await axios.post("/api/v1/password/forgot", email, config);
+        const { data } = await axiosa.post("/api/v1/password/forgot", email, config);
 
         dispatch({
             type: FORGOT_PASSWORD_SUCCESS,
@@ -250,7 +251,7 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
             },
         };
 
-        const { data } = await axios.put(
+        const { data } = await axiosa.put(
             `/api/v1/password/reset/${token}`,
             passwords,
             config

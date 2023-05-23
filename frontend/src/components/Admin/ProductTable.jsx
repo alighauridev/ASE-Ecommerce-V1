@@ -13,7 +13,7 @@ import { DELETE_PRODUCT_RESET } from "../../Redux/constants/productConstants";
 import Actions from "./Actions";
 import MetaData from "../Layouts/MetaData";
 import BackdropLoader from "../Layouts/BackdropLoader";
-
+import axiosa from "../../api/axiosa";
 const ProductTable = () => {
   const [products, setProducts] = useState();
   const dispatch = useDispatch();
@@ -25,13 +25,13 @@ const ProductTable = () => {
   const { user } = useSelector((state) => state.user);
   const fetchVendorProducts = async () => {
     try {
-      const response = await fetch(
+      const response = await axiosa.get(
         `/api/v1/vendor/${user.vendor._id}/products`
       );
-      if (!response.ok) {
+      if (response.status !== 200) {
         throw new Error("Network response was not ok");
       }
-      const data = await response.json();
+      const data = response.data;
       setProducts(data.products);
     } catch (error) {
       console.error("Error:", error);

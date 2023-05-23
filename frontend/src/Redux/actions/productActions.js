@@ -25,7 +25,9 @@ import {
     PRODUCT_UPDATE_SUCCESS,
 } from "../constants/productConstants";
 import axios from "axios";
+import axiosa from "../../api/axiosa";
 import { toast } from "react-toastify";
+import urls from "../../api/url";
 // import instance from "../../assets/axiosConfig";
 
 export const getProducts =
@@ -36,7 +38,7 @@ export const getProducts =
                     type: PRODUCT_LIST_REQUEST,
                 });
 
-                const { data } = await axios.get(`/api/v1/products/all`);
+                const { data } = await axiosa.get(urls.products.getProducts);
                 console.log(data);
                 dispatch({
                     type: PRODUCT_LIST_SUCCESS,
@@ -58,7 +60,7 @@ export const getSingleProduct = (id) => async (dispatch, getState) => {
         dispatch({
             type: PRODUCT_DETAILS_REQUEST,
         });
-        const { data } = await axios.get(`/api/products/${id}`);
+        const { data } = await axiosa.get(`/api/products/${id}`);
         dispatch({
             type: PRODUCT_DETAILS_SUCCESS,
             payload: data,
@@ -74,124 +76,12 @@ export const getSingleProduct = (id) => async (dispatch, getState) => {
     }
 };
 
-export const createNoteAction =
-    (title, content, category) => async (dispatch, getState) => {
-        try {
-            dispatch({
-                type: PRODUCT_CREATE_REQUEST,
-            });
 
-            const {
-                userLogin: { userInfo },
-            } = getState();
-
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${userInfo.token}`,
-                },
-            };
-
-            const { data } = await axios.post(
-                `/api/notes/create`,
-                { title, content, category },
-                config
-            );
-
-            dispatch({
-                type: PRODUCT_CREATE_SUCCESS,
-                payload: data,
-            });
-        } catch (error) {
-            const message =
-                error.response && error.response.data.message
-                    ? error.response.data.message
-                    : error.message;
-            dispatch({
-                type: PRODUCT_CREATE_FAIL,
-                payload: message,
-            });
-        }
-    };
-
-export const deleteNoteAction = (id) => async (dispatch, getState) => {
-    try {
-        dispatch({
-            type: PRODUCT_DELETE_REQUEST,
-        });
-
-        const {
-            userLogin: { userInfo },
-        } = getState();
-
-        const config = {
-            headers: {
-                Authorization: `Bearer ${userInfo.token}`,
-            },
-        };
-
-        const { data } = await axios.delete(`/api/notes/${id}`, config);
-
-        dispatch({
-            type: PRODUCT_DELETE_SUCCESS,
-            payload: data,
-        });
-    } catch (error) {
-        const message =
-            error.response && error.response.data.message
-                ? error.response.data.message
-                : error.message;
-        dispatch({
-            type: PRODUCT_DELETE_FAIL,
-            payload: message,
-        });
-    }
-};
-
-export const updateNoteAction =
-    (id, title, content, category) => async (dispatch, getState) => {
-        try {
-            dispatch({
-                type: PRODUCT_UPDATE_REQUEST,
-            });
-
-            const {
-                userLogin: { userInfo },
-            } = getState();
-
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${userInfo.token}`,
-                },
-            };
-
-            const { data } = await axios.put(
-                `/api/notes/${id}`,
-                { title, content, category },
-                config
-            );
-
-            dispatch({
-                type: PRODUCT_UPDATE_SUCCESS,
-                payload: data,
-            });
-        } catch (error) {
-            const message =
-                error.response && error.response.data.message
-                    ? error.response.data.message
-                    : error.message;
-            dispatch({
-                type: PRODUCT_UPDATE_FAIL,
-                payload: message,
-            });
-        }
-    };
 export const createProduct = (productData) => async (dispatch) => {
     try {
         dispatch({ type: NEW_PRODUCT_REQUEST });
         const config = { header: { "Content-Type": "application/json" } }
-        const { data } = await axios.post("/api/v1/vendor/product/upload", productData, config);
+        const { data } = await axiosa.post("/api/v1/vendor/product/upload", productData, config);
 
         dispatch({
             type: NEW_PRODUCT_SUCCESS,
@@ -251,7 +141,7 @@ export const getAdminProducts = () => { };
 export const deleteProduct = (id) => async (dispatch) => {
     try {
         dispatch({ type: DELETE_PRODUCT_REQUEST });
-        const { data } = await axios.delete(`/api/v1/vendor/product/${id}`);
+        const { data } = await axiosa.delete(`/api/v1/vendor/product/${id}`);
 
         dispatch({
             type: DELETE_PRODUCT_SUCCESS,
