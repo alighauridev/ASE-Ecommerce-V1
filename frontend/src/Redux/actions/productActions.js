@@ -141,7 +141,7 @@ export const getAdminProducts = () => { };
 export const deleteProduct = (id) => async (dispatch) => {
     try {
         dispatch({ type: DELETE_PRODUCT_REQUEST });
-        const { data } = await axiosa.delete(`/api/v1/vendor/product/${id}`);
+        const { data } = await axios.delete(`/api/v1/vendor/product/${id}`);
 
         dispatch({
             type: DELETE_PRODUCT_SUCCESS,
