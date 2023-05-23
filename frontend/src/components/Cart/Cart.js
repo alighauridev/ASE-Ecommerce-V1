@@ -6,6 +6,7 @@ import phone from '../../assets/iphone.jpg'
 import { MdOutlineMinimize } from 'react-icons/md'
 import { GrFormAdd } from 'react-icons/gr'
 import Footer from '../Reuseable/Footer'
+import { Link } from 'react-router-dom'
 const Cart = () => {
     return (
         <Fragment>
@@ -47,9 +48,13 @@ const Cart = () => {
                             <p>Total amount</p>
                             <p>600</p>
                         </div>
+                       
                        <div className='padding-bootom'>
+                       <Link to='/order'>
                        <button>Check Out</button>
+                       </Link>
                        </div>
+                      
                     </div>
                 </div>
             </div>
