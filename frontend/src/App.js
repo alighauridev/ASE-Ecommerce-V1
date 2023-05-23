@@ -22,6 +22,7 @@ import ReviewsTable from "./components/Admin/ReviewsTable.jsx";
 import ProductDetail from './components/ProductDetail/ProductDetail'
 import ProductDetailMain from "./components/ProductDetail/ProductDetailMain";
 import Cart from "./components/Cart/Cart";
+import Order from "./components/Order/Order";
 
 function App() {
   return (
@@ -110,7 +111,9 @@ function App() {
             </Dashboard>
 
           } ></Route>
-
+<Route path="/detail" element={<ProductDetailMain/>}/>
+<Route path="/cart" element={<Cart/>}/>
+<Route path="/order" element={<Order/>}/>
           <Route path="/category" element={<Category />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/user-profile" element={<ProfileScreen />} />
