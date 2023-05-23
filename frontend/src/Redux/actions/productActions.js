@@ -25,7 +25,9 @@ import {
     PRODUCT_UPDATE_SUCCESS,
 } from "../constants/productConstants";
 import axios from "axios";
+import axiosa from "../../api/axiosa";
 import { toast } from "react-toastify";
+import urls from "../../api/url";
 // import instance from "../../assets/axiosConfig";
 
 export const getProducts =
@@ -36,7 +38,7 @@ export const getProducts =
                     type: PRODUCT_LIST_REQUEST,
                 });
 
-                const { data } = await axios.get(`/api/v1/products/all`);
+                const { data } = await axiosa.get(urls.products.getProducts);
                 console.log(data);
                 dispatch({
                     type: PRODUCT_LIST_SUCCESS,
@@ -251,7 +253,7 @@ export const getAdminProducts = () => { };
 export const deleteProduct = (id) => async (dispatch) => {
     try {
         dispatch({ type: DELETE_PRODUCT_REQUEST });
-        const { data } = await axios.delete(`/api/v1/vendor/product/${id}`);
+        const { data } = await axios.delete(`https://ase-server2.onrender.com/api/v1/vendor/product/${id}`);
 
         dispatch({
             type: DELETE_PRODUCT_SUCCESS,
