@@ -111,10 +111,10 @@ function App() {
             </Dashboard>
 
           } ></Route>
-<Route path="/detail" element={<ProductDetailMain/>}/>
-<Route path="/cart" element={<Cart/>}/>
-<Route path="/order" element={<Order/>}/>
-          <Route path="/category" element={<Category />} />
+          <Route path="/detail/:id" element={<ProductDetailMain />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/order" element={<Order />} />
+          <Route path="/products" element={<Category />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/user-profile" element={<ProfileScreen />} />
           </Route>

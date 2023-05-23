@@ -11,7 +11,7 @@ import './Categoryscss/CategoryItems.scss'
 import { productitems } from '../../Data';
 import { AiOutlineHeart } from 'react-icons/ai'
 import { Link } from 'react-router-dom';
-const CategoryItems = () => {
+const CategoryItems = ({ products }) => {
     const [value, setValue] = React.useState(2);
     const [age, setAge] = React.useState('');
 
@@ -22,7 +22,7 @@ const CategoryItems = () => {
         <div className='product-parent-item'>
             <div className='links'>
 
-                
+
 
             </div>
             <div className='product-discount-flex'>
@@ -52,47 +52,47 @@ const CategoryItems = () => {
 
             <div className='product-items-list-parent'>
                 {
-                    productitems.map((items) => {
+                    products.map((item) => {
                         return (
-                         
-                          <Link to='/detail'>
-                               <div>
-                                <div className='product-img'>
-                                    <div>
-                                        <img src='./images/iphone.jpg' alt="" />
-                                    </div>
-                                    <div className='cart-button'>
-                                        <AiOutlineHeart />
-                                    </div>
-                                </div>
+
+                            <Link to={`/detail/${item._id}`}>
                                 <div>
-                                    <button>Offical Store</button>
-                                    <h6 className='product-title'>Freeyond M5,8GB+128GB,6.52", 50MP,4G Smartphone 5000mAh Dual</h6>
-                                    <span>PKR 9,590</span>
-                                    <br />
-                                    <del>PKR 10,590</del>
-
+                                    <div className='product-img'>
+                                        <div>
+                                            <img src={item.image.url} alt="" />
+                                        </div>
+                                        <div className='cart-button'>
+                                            <AiOutlineHeart />
+                                        </div>
+                                    </div>
                                     <div>
-                                        <Box
-                                            sx={{
-                                                '& > legend': { mt: 2 },
-                                            }}
-                                        >
+                                        <button>Offical Store</button>
+                                        <h6 className='product-title'>{item.name}</h6>
+                                        <span>{item.price}</span>
+                                        <br />
+                                        <del>{item.cuttedPrice}</del>
 
-
-                                            <Rating
-                                                name="simple-controlled"
-                                                value={value}
-                                                onChange={(event, newValue) => {
-                                                    setValue(newValue);
+                                        <div>
+                                            <Box
+                                                sx={{
+                                                    '& > legend': { mt: 2 },
                                                 }}
-                                            />
-                                        </Box>
+                                            >
+
+
+                                                <Rating
+                                                    name="simple-controlled"
+                                                    value={value}
+                                                    onChange={(event, newValue) => {
+                                                        setValue(newValue);
+                                                    }}
+                                                />
+                                            </Box>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                          </Link>
-                          
+                            </Link>
+
                         )
                     })
                 }

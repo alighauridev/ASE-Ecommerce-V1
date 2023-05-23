@@ -4,7 +4,7 @@ import { MdExpandLess } from "react-icons/md";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
@@ -214,6 +214,7 @@ const FlashSale = ({ data }) => {
     //         __v: 0
     //     }
     // ]
+    const navigate = useNavigate()
     return (
         <div className="flash-sale-parent">
             <div className="sub-flash-grid">
@@ -228,7 +229,7 @@ const FlashSale = ({ data }) => {
                         {/* <Clock /> */}
                     </div>
                     <div className="see-all">
-                        <button>VIEW ALL</button>
+                        <button onClick={() => navigate('/products')}>VIEW ALL</button>
                     </div>
                 </div>
 
@@ -259,10 +260,10 @@ const FlashSale = ({ data }) => {
                         modules={[Pagination, Navigation, Autoplay]}
                         className="mySwiper"
                     >
-                        {products.map((item) => {
+                        {products?.map((item) => {
                             return (
                                 <SwiperSlide>
-                                    <Link to="/category" style={{ textDecoration: "none" }}>
+                                    <Link to={`/detail/${item._id}`} style={{ textDecoration: "none" }}>
                                         <div className="single-product">
                                             <img src={item.image.url} alt="" />
                                             <h5>

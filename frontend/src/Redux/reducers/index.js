@@ -31,8 +31,7 @@ import {
 const RootReducer = combineReducers({
   Products: allProductsReducer,
   ProductDetails: singleProductReducer,
-  ProductCreateReview: productCreateReviewReducer,
-  ProductDelete: productReducer,
+
   Cart: cartReducer,
   Checkout: shippingDetailsReducer,
   user: userReducer,

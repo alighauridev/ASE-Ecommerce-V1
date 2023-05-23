@@ -60,7 +60,7 @@ export const getSingleProduct = (id) => async (dispatch, getState) => {
         dispatch({
             type: PRODUCT_DETAILS_REQUEST,
         });
-        const { data } = await axiosa.get(`/api/products/${id}`);
+        const { data } = await axiosa.get(`/api/v1/product/${id}`);
         dispatch({
             type: PRODUCT_DETAILS_SUCCESS,
             payload: data,
