@@ -12,7 +12,7 @@ const get = async (key) => {
 };
 
 const instance = axios.create({
-  baseURL: "http://localhost:5000/",
+  baseURL: "https://ase-server2.onrender.com",
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
