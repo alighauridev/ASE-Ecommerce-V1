@@ -1,6 +1,6 @@
 // categoryActions.js
+import axiosa from "../../api/axiosa";
 
-import axios from "axios";
 import {
     CATEGORY_LIST_REQUEST,
     CATEGORY_LIST_SUCCESS,
@@ -32,7 +32,7 @@ export const listCategories = () => async (dispatch) => {
     try {
         dispatch({ type: CATEGORY_LIST_REQUEST });
 
-        const { data } = await axios.get("/api/v1/categories");
+        const { data } = await axiosa.get("/api/v1/categories/all");
 
         dispatch({
             type: CATEGORY_LIST_SUCCESS,
@@ -53,7 +53,7 @@ export const getCategory = (id) => async (dispatch) => {
     try {
         dispatch({ type: CATEGORY_DETAILS_REQUEST });
 
-        const { data } = await axios.get(`/api/categories/${id}`);
+        const { data } = await axiosa.get(`/api/categories/${id}`);
 
         dispatch({
             type: CATEGORY_DETAILS_SUCCESS,
@@ -74,7 +74,7 @@ export const createCategory = (name, parentCategory) => async (dispatch) => {
     try {
         dispatch({ type: CREATE_CATEGORY_REQUEST });
 
-        const { data } = await axios.post("/api/categories", {
+        const { data } = await axiosa.post("/api/categories", {
             name,
             parentCategory,
         });

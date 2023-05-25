@@ -1,6 +1,6 @@
 const urls = {
   // baseUrl: "https://moto-tank-backend.vercel.app",
-  baseUrl: "http://localhost:5000/",
+  baseUrl: "https://ase-server2.onrender.com/",
   auth: {
     login: "/auth/login",
     signup: "/auth/signup",
@@ -51,11 +51,11 @@ const urls = {
     uploadImage: "/upload/images",
   },
   query: {
-    query: "/query"
+    query: "/query",
   },
   maintainance: {
     maintainance: (slug) => `/maintainance/${slug}`,
-  }
+  },
 };
 
 export default urls;

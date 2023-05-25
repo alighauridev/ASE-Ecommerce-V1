@@ -4,7 +4,7 @@ import { getAllOrders } from "../../Redux/actions/orderActions";
 import { toast, ToastContainer } from "react-toastify";
 import Orders from "./Orders";
 import { getAllProducts } from "../../Redux/actions/productActions";
-import axios from "axios";
+import axiosa from "../../api/axiosa";
 const OrderMain = () => {
     const [change, setChange] = useState(1)
     const data = useSelector((state) => state.Products.products)
@@ -13,7 +13,7 @@ const OrderMain = () => {
 
     const approveProduct = (productId) => {
         setChange(productId)
-        axios
+        axiosa
             .patch(`/api/v1/admin/products/${productId}/approve`)
             .then((response) => {
                 console.log("Product approved successfully");

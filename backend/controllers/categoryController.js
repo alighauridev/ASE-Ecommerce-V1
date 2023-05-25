@@ -55,11 +55,22 @@ exports.createCategory = async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 };
+// Get Recent Categories Controller
+exports.getRecentCategories = async (req, res) => {
+    try {
+        const categories = await Category.find()
+            .sort({ _id: -1 })
+
+        res.send(categories);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+};
 
 // Update Category Controller
 exports.updateCategory = async (req, res) => {
     const updates = Object.keys(req.body);
-    const allowedUpdates = ["name", "slug", "parentCategory", "subcategories"];
+    const allowedUpdates = ["name", "parentCategory", "subcategories"];
     const isValidOperation = updates.every((update) =>
         allowedUpdates.includes(update)
     );
@@ -74,13 +85,21 @@ exports.updateCategory = async (req, res) => {
             return res.status(404).send();
         }
 
-        updates.forEach((update) => (category[update] = req.body[update]));
+        updates.forEach((update) => {
+            category[update] = req.body[update];
+            if (update === "name") {
+                // Generate a new slug whenever the name is updated
+                category["slug"] = req.body[update].toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            }
+        });
+
         await category.save();
         res.send(category);
     } catch (error) {
         res.status(400).send(error);
     }
 };
+
 // Delete Category Controller
 exports.deleteCategory = async (req, res) => {
     try {
@@ -96,6 +115,11 @@ exports.deleteCategory = async (req, res) => {
             });
         }
 
+        // Delete all subcategories
+        if (category.subcategories) {
+            await Category.deleteMany({ _id: { $in: category.subcategories } });
+        }
+
         await category.remove();
 
         res.send(category);
@@ -103,6 +127,7 @@ exports.deleteCategory = async (req, res) => {
         res.status(500).send(error);
     }
 };
+
 
 // Get Subcategories Controller
 exports.getSubcategory = async (req, res) => {

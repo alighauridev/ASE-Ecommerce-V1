@@ -22,13 +22,13 @@ import {
     PRODUCT_UPDATE_REQUEST,
     PRODUCT_UPDATE_SUCCESS,
 } from "../constants/productConstants";
-import axios from "axios";
+import axiosa from "../../api/axiosa";
 import { toast } from "react-toastify";
 export const createProduct = (productData) => async (dispatch) => {
     try {
         dispatch({ type: NEW_PRODUCT_REQUEST });
         const config = { header: { "Content-Type": "application/json" } }
-        const { data } = await axios.post("/api/v1/admin/product/new", productData, config);
+        const { data } = await axiosa.post("/api/v1/admin/product/new", productData, config);
 
         dispatch({
             type: NEW_PRODUCT_SUCCESS,
@@ -59,7 +59,7 @@ export const getAllProducts = () => async (dispatch, getState) => {
             },
         };
 
-        const { data } = await axios.get(`/api/v1/admin/products/all`, config);
+        const { data } = await axiosa.get(`/api/v1/admin/products/all`, config);
 
         dispatch({
             type: PRODUCT_LIST_SUCCESS,
@@ -81,7 +81,7 @@ export const getSingleProduct = (id) => async (dispatch, getState) => {
         dispatch({
             type: PRODUCT_DETAILS_REQUEST,
         });
-        const { data } = await axios.get(`/api/products/${id}`);
+        const { data } = await axiosa.get(`/api/products/${id}`);
         dispatch({
             type: PRODUCT_DETAILS_SUCCESS,
             payload: data,
@@ -114,7 +114,7 @@ export const getSingleProduct = (id) => async (dispatch, getState) => {
 //             },
 //         };
 
-//         const { data } = await axios.post(`/api/products/create`, product, config);
+//         const { data } = await axiosa.post(`/api/products/create`, product, config);
 
 //         dispatch({
 //             type: PRODUCT_CREATE_SUCCESS,
@@ -148,7 +148,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
             },
         };
 
-        await axios.delete(`/api/products/${id}`, config);
+        await axiosa.delete(`/api/products/${id}`, config);
 
         dispatch({
             type: PRODUCT_DELETE_SUCCESS,
@@ -183,7 +183,7 @@ export const updateProduct =
                 },
             };
 
-            const { data } = await axios.put(
+            const { data } = await axiosa.put(
                 `/api/Products/${id}`,
                 updatedProduct,
                 config
@@ -223,7 +223,7 @@ export const createReviewAction =
                 },
             };
 
-            axios.post(`/api/products/${productId}/review`, review, config);
+            axiosa.post(`/api/products/${productId}/review`, review, config);
 
             dispatch({
                 type: PRODUCT_CREATE_REVIEW_SUCCESS,

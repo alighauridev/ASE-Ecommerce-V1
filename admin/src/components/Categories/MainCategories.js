@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import CreateCategory from "./CreateCategory";
 import CategoriesTable from "./CategoriesTable";
-import { useDispatch } from "react-redux"
+import { useDispatch } from "react-redux";
 import { listCategories } from "../../Redux/actions/categoryActions";
 const MainCategories = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(listCategories());
-    }, [])
+    }, []);
 
     return (
         <section className="content-main">
@@ -16,9 +16,11 @@ const MainCategories = () => {
             </div>
             <div className="card shadow-sm">
                 <div className="card-body">
-                    <div className="row">
-                        {" "}
-                        {/* Create category */} <CreateCategory /> {/* Categories table */}{" "}
+                    <div className="grid" style={{
+                        gridTemplateColumns: '2fr 2fr',
+                        gap: '2rem'
+                    }}>
+                        <CreateCategory />
                         <CategoriesTable />
                     </div>{" "}
                 </div>{" "}

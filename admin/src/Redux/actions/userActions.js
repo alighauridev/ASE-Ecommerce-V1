@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosa from "../../api/axiosa";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
@@ -32,7 +32,7 @@ export const login = (email, password) => async (dispatch) => {
             },
         };
 
-        const { data } = await axios.post(
+        const { data } = await axiosa.post(
             "/api/users/login",
             { email, password },
             config
@@ -64,7 +64,7 @@ export const getUsers = () => async (dispatch, getState) => {
             },
         };
 
-        const { data } = await axios.get(
+        const { data } = await axiosa.get(
             "/api/users",
             config
         );
