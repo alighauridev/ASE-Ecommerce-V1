@@ -7,9 +7,8 @@ const Category = require('../models/categoryModel');
 
 // Filter the Product 
 
-// controllers/productController.js
 
-// Now, you can make a GET request to the / search endpoint to search and filter products.The following query parameters can be used for searching and filtering:
+
 exports.getProductsByCategory = async (req, res) => {
     const categoryId = req.params.categoryId;
 
@@ -135,14 +134,6 @@ exports.getApprovedProducts = asyncErrorHandler(async (req, res, next) => {
         products,
     });
 });
-// exports.getProducts = asyncErrorHandler(async (req, res, next) => {
-//     const products = await Product.find({ approved: true });
-
-//     res.status(200).json({
-//         success: true,
-//         products,
-//     });
-// });
 
 // Get Product Details
 exports.getProductDetails = asyncErrorHandler(async (req, res, next) => {

@@ -4,7 +4,7 @@ import styles from "./CategoryForm.module.css";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { listCategories } from "../../Redux/actions/categoryActions";
-
+import axiosa from "../../api/axiosa"
 const CategoryForm = () => {
     const [categories, setCategories] = useState([]);
     const [name, setName] = useState("");
@@ -18,7 +18,7 @@ const CategoryForm = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const res = await axios.get("/api/v1/categories");
+                const res = await axiosa.get("/api/v1/categories");
                 setCategories(res.data);
             } catch (err) {
                 console.error(err);
@@ -31,7 +31,7 @@ const CategoryForm = () => {
         const fetchSubCategories = async () => {
             if (parentCategory) {
                 try {
-                    const res = await axios.get(`/api/v1/categories/${parentCategory}/subcategories`);
+                    const res = await axiosa.get(`/api/v1/categories/${parentCategory}/subcategories`);
                     setSubCategories(res.data);
                 } catch (err) {
                     console.error(err);
@@ -54,7 +54,7 @@ const CategoryForm = () => {
                 url += `/${parentCategory}/subcategories`;
                 payload = { ...payload, parentId: parentCategory };
             }
-            await axios.post(url, payload);
+            await axiosa.post(url, payload);
             toast.success("Created Successfully!");
             dispatch(listCategories())
             setName("");

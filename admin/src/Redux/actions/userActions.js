@@ -65,7 +65,7 @@ export const getUsers = () => async (dispatch, getState) => {
         };
 
         const { data } = await axiosa.get(
-            "/api/users",
+            "/api/v1/admin/users/all",
             config
         );
 

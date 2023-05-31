@@ -119,6 +119,18 @@ exports.getUserDetails = asyncErrorHandler(async (req, res, next) => {
         user: userObj,
     });
 });
+// Get User Details
+exports.getAllUsers = asyncErrorHandler(async (req, res, next) => {
+
+    const users = await User.find({});
+
+
+    // Send token and userObj
+    res.status(201).json({
+
+        users
+    });
+});
 
 // Forgot Password
 exports.forgotPassword = asyncErrorHandler(async (req, res, next) => {

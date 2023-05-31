@@ -5,8 +5,8 @@ import { getUsers } from "../../Redux/actions/userActions";
 
 const UserComponent = () => {
     const dispatch = useDispatch();
-    const UserList = useSelector((state) => state.UserList);
-    const { users, loading, error } = UserList;
+    const UserList = useSelector((state) => state.UserList.users);
+    const { users } = UserList || {};
 
     useEffect(() => {
         dispatch(getUsers());
@@ -55,14 +55,14 @@ const UserComponent = () => {
                 <div className="card-body">
                     <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
                         {users?.map((user, index) => {
-                            const { name, email, isAdmin } = user;
+                            const { name, email, isAdmin, avatar } = user;
                             return (
                                 <div className="col">
                                     <div className="card card-user shadow-sm">
                                         <div className="card-header">
                                             <img
-                                                className="img-md img-avatar"
-                                                src="images/favicon.png"
+                                                className={"img-md img-avatar"}
+                                                src={avatar?.url}
                                                 alt="User pic"
                                             />
                                         </div>

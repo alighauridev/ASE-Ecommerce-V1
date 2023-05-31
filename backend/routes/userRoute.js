@@ -12,15 +12,21 @@ const {
     getSingleUser,
     updateUserRole,
     deleteUser,
-
 } = require("../controllers/userController");
 const { isAuthenticatedUser, authorizeRoles } = require("../middlewares/auth");
 const { isVendor } = require("../middlewares/isVendor");
-const { registerVendor, loginVendor, getVendorDetails, updateVendorProfile, updateVendorPassword } = require("../controllers/vendorControllers");
+const {
+    registerVendor,
+    loginVendor,
+    getVendorDetails,
+    updateVendorProfile,
+    updateVendorPassword,
+} = require("../controllers/vendorControllers");
 
 const router = express.Router();
 
 router.route("/register").post(registerUser);
+router.route("/admin/users/all").get(getAllUsers);
 router.route("/login").post(loginUser);
 router.route("/logout").get(logoutUser);
 
